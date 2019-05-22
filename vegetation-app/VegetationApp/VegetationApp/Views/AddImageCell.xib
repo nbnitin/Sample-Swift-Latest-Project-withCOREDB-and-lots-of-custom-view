@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="T6Q-vh-fQ6" customClass="AddImageCell" customModule="VegetationApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aZl-xR-rD1">
+                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add" translatesAutoresizingMaskIntoConstraints="NO" id="5xz-mx-wXM">
+                                <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="5xz-mx-wXM" firstAttribute="top" secondItem="aZl-xR-rD1" secondAttribute="top" id="csv-Me-Lyd"/>
+                            <constraint firstAttribute="bottom" secondItem="5xz-mx-wXM" secondAttribute="bottom" id="nCN-9E-mMz"/>
+                            <constraint firstItem="5xz-mx-wXM" firstAttribute="leading" secondItem="aZl-xR-rD1" secondAttribute="leading" id="y1Q-8L-rNS"/>
+                            <constraint firstAttribute="trailing" secondItem="5xz-mx-wXM" secondAttribute="trailing" id="yCl-k8-0sO"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="aZl-xR-rD1" firstAttribute="top" secondItem="T6Q-vh-fQ6" secondAttribute="top" id="DMl-lZ-eMF"/>
+                <constraint firstItem="aZl-xR-rD1" firstAttribute="leading" secondItem="T6Q-vh-fQ6" secondAttribute="leading" id="bhE-ir-oJH"/>
+                <constraint firstAttribute="trailing" secondItem="aZl-xR-rD1" secondAttribute="trailing" id="hJ1-uw-Qcl"/>
+                <constraint firstAttribute="bottom" secondItem="aZl-xR-rD1" secondAttribute="bottom" id="oRK-8L-Si1"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="pUC-Fb-78c"/>
+            <size key="customSize" width="102" height="100"/>
+            <connections>
+                <outlet property="imgAddImage" destination="5xz-mx-wXM" id="rXO-4F-E1d"/>
+            </connections>
+            <point key="canvasLocation" x="430.39999999999998" y="-161.91904047976013"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="add" width="90.5" height="90.5"/>
+    </resources>
+</document>

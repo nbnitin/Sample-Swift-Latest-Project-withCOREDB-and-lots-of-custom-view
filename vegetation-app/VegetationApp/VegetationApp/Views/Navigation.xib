@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Navigation" customModule="VegetationApp" customModuleProvider="target">
+            <connections>
+                <outlet property="btnMenu" destination="Yzs-tI-Jbb" id="IIz-9v-c04"/>
+                <outlet property="btnRight" destination="lZ8-AH-QvK" id="cNi-JI-jbu"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="b7D-lk-3DY"/>
+                <outlet property="lblTitle" destination="aX0-Ua-IJh" id="qVi-Am-bGp"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="navigation" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="385" height="35"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yzs-tI-Jbb">
+                    <rect key="frame" x="3" y="6" width="43" height="23"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="43" id="6pE-wn-JhK"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <inset key="imageEdgeInsets" minX="13" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" image="ic_menu_24px">
+                        <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aX0-Ua-IJh">
+                    <rect key="frame" x="67.5" y="7" width="250" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <color key="textColor" red="0.2627450980392157" green="0.2627450980392157" blue="0.2627450980392157" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lZ8-AH-QvK">
+                    <rect key="frame" x="331" y="2" width="48" height="31"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                    <color key="tintColor" red="0.3568286598" green="0.35688453910000001" blue="0.35681644080000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" title="Done">
+                        <color key="titleColor" red="0.35682865977287292" green="0.35688453912734985" blue="0.35681644082069397" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Yzs-tI-Jbb" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="3" id="1FE-kg-L9b"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="lZ8-AH-QvK" secondAttribute="bottom" constant="2" id="65m-9l-ObD"/>
+                <constraint firstItem="lZ8-AH-QvK" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="2" id="F2W-Ab-51u"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="aX0-Ua-IJh" secondAttribute="bottom" constant="7" id="Jfj-df-2zC"/>
+                <constraint firstItem="lZ8-AH-QvK" firstAttribute="leading" secondItem="aX0-Ua-IJh" secondAttribute="trailing" constant="13.5" id="U8N-ej-930"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="lZ8-AH-QvK" secondAttribute="trailing" constant="6" id="XTR-ce-Qh2"/>
+                <constraint firstItem="Yzs-tI-Jbb" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="6" id="aCC-Fb-Dj5"/>
+                <constraint firstItem="aX0-Ua-IJh" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="fzp-gu-yps"/>
+                <constraint firstItem="aX0-Ua-IJh" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="7" id="kFs-KD-MKK"/>
+                <constraint firstItem="aX0-Ua-IJh" firstAttribute="leading" secondItem="Yzs-tI-Jbb" secondAttribute="trailing" constant="21.5" id="rY5-3l-nrS"/>
+                <constraint firstItem="aX0-Ua-IJh" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="v3B-UK-XQ0"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Yzs-tI-Jbb" secondAttribute="bottom" constant="6" id="vrS-oX-FjJ"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="189.59999999999999" y="284.70764617691157"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_menu_24px" width="20.5" height="13.5"/>
+    </resources>
+</document>

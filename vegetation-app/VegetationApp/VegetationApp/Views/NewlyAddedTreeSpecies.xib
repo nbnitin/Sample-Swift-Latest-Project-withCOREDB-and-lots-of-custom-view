@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="59" id="NQ3-GR-uTM" customClass="NewlyAddedTreeSpeciesTableViewCell" customModule="VegetationApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NQ3-GR-uTM" id="dyh-pN-v2D">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="58.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="grG-CY-tjQ">
+                        <rect key="frame" x="21" y="5" width="299" height="48.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="299" id="5e8-17-H0h"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W7B-sc-7fe">
+                        <rect key="frame" x="321" y="10.5" width="45" height="37.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="geO-u0-BlS"/>
+                        </constraints>
+                        <state key="normal" image="cross"/>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="grG-CY-tjQ" firstAttribute="top" secondItem="dyh-pN-v2D" secondAttribute="topMargin" constant="-6" id="GZF-2D-DqW"/>
+                    <constraint firstItem="grG-CY-tjQ" firstAttribute="centerY" secondItem="dyh-pN-v2D" secondAttribute="centerY" id="Nk0-kc-PPw"/>
+                    <constraint firstItem="grG-CY-tjQ" firstAttribute="leading" secondItem="dyh-pN-v2D" secondAttribute="leadingMargin" constant="5" id="S8y-Xf-Vie"/>
+                    <constraint firstItem="W7B-sc-7fe" firstAttribute="bottom" secondItem="dyh-pN-v2D" secondAttribute="bottomMargin" id="TzI-uN-nf4"/>
+                    <constraint firstItem="W7B-sc-7fe" firstAttribute="centerY" secondItem="dyh-pN-v2D" secondAttribute="centerY" id="kD0-wU-w8N"/>
+                    <constraint firstItem="W7B-sc-7fe" firstAttribute="leading" secondItem="grG-CY-tjQ" secondAttribute="trailing" constant="1" id="vxy-Hv-tvc"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="btnDelete" destination="W7B-sc-7fe" id="901-ph-qmy"/>
+                <outlet property="lblTreeSpeciesName" destination="grG-CY-tjQ" id="UlT-Rz-3cC"/>
+            </connections>
+            <point key="canvasLocation" x="138" y="-4"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="cross" width="14" height="14"/>
+    </resources>
+</document>

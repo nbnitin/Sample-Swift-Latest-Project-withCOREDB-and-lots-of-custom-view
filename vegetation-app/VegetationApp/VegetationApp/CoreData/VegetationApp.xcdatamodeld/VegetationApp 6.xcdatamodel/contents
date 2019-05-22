@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.98" systemVersion="18D109" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AccessToLine" representedClassName="AccessToLine" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="AccessToTree" representedClassName="AccessToTree" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="CurrentConditionCycleTrim" representedClassName="CurrentConditionCycleTrim" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="CurrentConditionHazardTree" representedClassName="CurrentConditionHazardTree" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="CycleTrim" representedClassName="CycleTrim" syncable="YES" codeGenerationType="class">
+        <attribute name="accessToLine" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="assginedTo" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="clearance" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="comments" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdBy" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="createdByName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="currentCondition" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="feederCustomerCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="feederId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="feederSubstation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="geoLat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="geoLong" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="growth" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="hoursSpent" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastTrimAt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastTrimHeight" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="lineConstruction" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="localOffice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nextTrimAt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ocAssigned" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="ocAssignedToName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rowId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="rowTreeList" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="segmentMiles" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="statusName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="substation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="treeDensity" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedBy" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="weatherData" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="workOrderId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="rowTreeListRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RowTreeList" inverseName="rowTreeListRelationship" inverseEntity="RowTreeList" syncable="YES"/>
+    </entity>
+    <entity name="DiameterAtBreastHeight" representedClassName="DiameterAtBreastHeight" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="FeederList" representedClassName="FeederList" syncable="YES" codeGenerationType="class">
+        <attribute name="countryParish" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="distributionRegion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="geoLat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="geoLng" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="localOffice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="oc" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="substation" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="LineConstruction" representedClassName="LineConstruction" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Prescription" representedClassName="Prescription" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="RiskLevel" representedClassName="RiskLevel" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="RowTreeList" representedClassName="RowTreeList" syncable="YES" codeGenerationType="class">
+        <attribute name="createdAt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdBy" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="createdByName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="percentage" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="rowId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="rowTreeId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="speciesId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="speciesName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="rowTreeListRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CycleTrim" inverseName="rowTreeListRelation" inverseEntity="CycleTrim" syncable="YES"/>
+    </entity>
+    <entity name="TreeDensity" representedClassName="TreeDensity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="TreeSpecies" representedClassName="TreeSpecies" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="AccessToLine" positionX="-9" positionY="54" width="128" height="75"/>
+        <element name="AccessToTree" positionX="-18" positionY="36" width="128" height="75"/>
+        <element name="CurrentConditionCycleTrim" positionX="0" positionY="54" width="128" height="75"/>
+        <element name="CurrentConditionHazardTree" positionX="27" positionY="81" width="128" height="75"/>
+        <element name="DiameterAtBreastHeight" positionX="-27" positionY="27" width="128" height="75"/>
+        <element name="FeederList" positionX="-54" positionY="9" width="128" height="180"/>
+        <element name="LineConstruction" positionX="-9" positionY="45" width="128" height="75"/>
+        <element name="Prescription" positionX="9" positionY="63" width="128" height="75"/>
+        <element name="RiskLevel" positionX="-18" positionY="45" width="128" height="75"/>
+        <element name="TreeDensity" positionX="-9" positionY="45" width="128" height="75"/>
+        <element name="TreeSpecies" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="CycleTrim" positionX="-9" positionY="72" width="128" height="570"/>
+        <element name="RowTreeList" positionX="0" positionY="153" width="128" height="180"/>
+    </elements>
+</model>
