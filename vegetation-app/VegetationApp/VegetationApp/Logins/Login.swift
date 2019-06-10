@@ -39,10 +39,23 @@ class Login: UIViewController {
     func showHome(){
         let sb = UIStoryboard(name: "Home", bundle: nil) //Home
         let vc = sb.instantiateInitialViewController()
+        
         let window = UIWindow()
         window.makeKey()
         window.rootViewController = vc
         self.present(vc!, animated: false, completion: nil)
+    }
+    
+    func showChangeDefaultPasswordScreen(){
+        let sb = self.storyboard
+        let vc = sb?.instantiateViewController(withIdentifier: "changePassword") as! ResetPassword
+        vc.oldPassword = txtPassword.text!
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight //from left from bottom and from top also a sub
+        self.view.window!.layer.add(transition, forKey: kCATransition)
+        self.present(vc, animated: false, completion: nil)
     }
     
     //Mark:- submit button action
@@ -70,6 +83,12 @@ class Login: UIViewController {
                     let model = try JSONDecoder().decode(User.self, from: jsonData!)
                     //Mark:- Writting to user default via archiving data
                     GetSaveUserDetailsFromUserDefault.saveUserDetails(userTemp: model)
+                    NotificationHandler.shared.updateNotificationToken()
+                    UserDefaults.standard.setValue(self.txtPassword.text!, forKeyPath: "oldPassword")
+                    if ( model.IsDefaultPassword  ) {
+                        self.showChangeDefaultPasswordScreen()
+                        return
+                    }
                     self.showHome()
                 } catch{
                     print("json error: \(error)")

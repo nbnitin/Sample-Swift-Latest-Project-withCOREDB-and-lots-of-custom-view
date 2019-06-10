@@ -664,7 +664,7 @@ class MasterDataController {
 
                 let data = response["KeyValueList"] as! [[String:AnyObject]]
                 for tempData in data {
-                    let dict = ["id":tempData["Id"] as! Int,"name":tempData["Name"] as! String] as [String : Any]
+                    let dict = ["id":tempData["Id"] as! Int,"name":tempData["Name"] as! String,"type":tempData["Type"] as! String] as [String : Any]
                     self.saveIntoCoreData(entityName: "Prescription",dict: dict)
                 }
                 print("i m finished")

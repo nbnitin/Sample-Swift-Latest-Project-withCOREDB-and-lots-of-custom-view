@@ -86,6 +86,7 @@ class AddHazardTreeVC: UIViewController,UICollectionViewDelegate,UICollectionVie
             currentLocation = CLLocationCoordinate2D(latitude: hazardTreeData.GeoLat, longitude: hazardTreeData.GeoLong)
             let location = CLLocation(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
             self.setCurrentAddress(location: location)
+            navigationBar.lblTitle.text = "Edit Hazard Tree"
         } else {
             //set location first time
             getLocation = GetUserLocation()
@@ -129,8 +130,9 @@ class AddHazardTreeVC: UIViewController,UICollectionViewDelegate,UICollectionVie
     
     //Mark:- setup view for editing
     private func setupViewForEditing(){
-        
-        
+        addHazardForm.txtTitle.text = hazardTreeData.Title
+        addHazardForm.txtTitle.superview?.backgroundColor = UIColor.white
+        addHazardForm.txtTitle.isEnabled = true
         addHazardForm.txtFeederNo.setText(EntityName: .FeederList, recId: hazardTreeData.FeederId)
       //  addHazardForm.setPoleAccordingToFeeder(nearestFeederId: hazardTreeData.FeederId)
        // addHazardForm.txtPoleOfOrigin.text = mcd.getRecordById(entityName: .Poles, id: hazardTreeData.PoleId!)["name"] as? String
@@ -362,19 +364,16 @@ class AddHazardTreeVC: UIViewController,UICollectionViewDelegate,UICollectionVie
         let indexPath = IndexPath(item: index, section: 0)
         let cell = self.addHazardForm.addImageCollView.cellForItem(at: indexPath) as! NewlyAddedImageCell
         
-        if ( hazardTreeData != nil ){
+        if ( image[index-1].Id as? Int == 1 ){
             let treeImages = hazardTreeData.HzTreeImages
             
-            if ( index < treeImages!.count  ) {
+            if ( index - 1 < treeImages!.count  ) {
                 let imageName = treeImages![index - 1].imageFullPathOriginal
                 let url = URL(string:imageName!)
-                setImageWithTitle.activity.startAnimating()
-                setImageWithTitle.loadingContainer.isHidden = false
+                setImageWithTitle.contentView.showLoadOtherFormat(title: "Please wait...", desc: "Loading high resolution image.")
                 self.setImageWithTitle.img.sd_setImage(with: url, completed: {
                     (image, error, cacheType, url) in
-                    self.setImageWithTitle.loadingContainer.isHidden = true
-                    self.setImageWithTitle.activity.stopAnimating()
-                    self.setImageWithTitle.activity.isHidden = true
+                        self.setImageWithTitle.contentView.hideLoadOtherView()
                     })
             } else {
                 self.setImageWithTitle.img.image = cell.imgAddImage.image
@@ -451,7 +450,7 @@ class AddHazardTreeVC: UIViewController,UICollectionViewDelegate,UICollectionVie
 
         
         let feederData = addHazardForm.txtFeederNo.selectedId
-        
+        let title = addHazardForm.txtTitle.text!
         //let poleOfOrigin = addHazardForm.txtPoleOfOrigin.getData(obj:addHazardForm.txtPoleOfOrigin) as! Int
         
         let poleOfOrigin = 0
@@ -488,7 +487,7 @@ class AddHazardTreeVC: UIViewController,UICollectionViewDelegate,UICollectionVie
   
         
         var parameter : [String:Any] = [:]
-       
+        parameter["Title"] = title
         parameter["FeederId"] = feederData
         parameter["Prescription"] = prescription
         parameter["TreeSpeciesId"] = treeSpecies
@@ -595,6 +594,7 @@ class AddHazardTreeVC: UIViewController,UICollectionViewDelegate,UICollectionVie
             self.view.hideLoad()
             self.addImages(hazardTreeId: response["Id"] as! Int)
             
+            
         })
         
     }
@@ -607,6 +607,7 @@ class AddHazardTreeVC: UIViewController,UICollectionViewDelegate,UICollectionVie
                 let imageData:NSData = (img.Name as! UIImage).jpegData(compressionQuality: 0.7)! as NSData
                 
                 var parameter : [String:Any] = [:]
+                parameter["HazardTreeImageId"] = 0
                 parameter["HazardTreeId"] = hazardTreeId
                 parameter["UserId"] = GetSaveUserDetailsFromUserDefault.getDetials()?.UserId
                 parameter["Status"] = 1
@@ -663,11 +664,14 @@ class AddHazardTreeVC: UIViewController,UICollectionViewDelegate,UICollectionVie
                 txt?.text = ""
             }
         }
+        addHazardForm.txtEnvComment.text = ""
+        addHazardForm.btnEnvNo(addHazardForm.btnEnvNo)
+        addHazardForm.btnEnvNo.setImage(UIImage(named: "radio"), for: .normal)
         
     }
     
     private func confirmToAddMore(){
-        let alert = UIAlertController(title: "Confirm?", message: "Do you want to add more hazard tree ?", preferredStyle: .alert)
+       let alert = UIAlertController(title: "Submitted", message: "Do you want to create more?", preferredStyle: .alert)
         let yesAction = UIAlertAction(title: "Yes", style: .default, handler: nil)
         let noAciton = UIAlertAction(title: "No", style: .cancel, handler: {(UIAlertAction) in
             self.navigationController?.popToRootViewController(animated: true)
@@ -680,9 +684,4 @@ class AddHazardTreeVC: UIViewController,UICollectionViewDelegate,UICollectionVie
 
 }
 
-extension Double {
-    func roundToDecimal(_ fractionDigits: Int) -> Double {
-        let multiplier = pow(10, Double(fractionDigits))
-        return Darwin.round(self * multiplier) / multiplier
-    }
-}
+

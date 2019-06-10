@@ -12,7 +12,7 @@ import SDWebImage
 class HazardTreeVC: UIViewController,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIAdaptivePresentationControllerDelegate,UIPopoverPresentationControllerDelegate,HazardTreeSortFilterDelegate{
     
     //variables
-    var cellHeight : CGFloat =  220 - 72//250 - 72.3 //(60 + some extra to fixed height of navigate button)
+    var cellHeight : CGFloat =  240.5 - 72//250 - 72.3 //(60 + some extra to fixed height of navigate button)
     var cellWidth : CGFloat = 0.0
     var data : [HazardTreeModel] = []
     var mcd : MasterDataController!
@@ -30,7 +30,7 @@ class HazardTreeVC: UIViewController,UICollectionViewDataSource,UICollectionView
 
        
         
-        btnAdd.addTarget(self, action: #selector(addNewCycleTrim(_:)), for: .touchUpInside)
+        btnAdd.addTarget(self, action: #selector(addNewHazardTree(_:)), for: .touchUpInside)
         
         
         
@@ -112,8 +112,8 @@ class HazardTreeVC: UIViewController,UICollectionViewDataSource,UICollectionView
     
     
     //Mark:- go to add screen
-    @objc private func addNewCycleTrim(_ sender:UIButton){
-        performSegue(withIdentifier: "addNewCycleTrim", sender: self)
+    @objc private func addNewHazardTree(_ sender:UIButton){
+        performSegue(withIdentifier: "addNewHazardTree", sender: self)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -123,6 +123,7 @@ class HazardTreeVC: UIViewController,UICollectionViewDataSource,UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! HazardTreeCell
+        cell.containerView.lblTitle.text = data[indexPath.row].Title
         cell.containerView.lblRecId.text = "\(data[indexPath.row].HazardTreeID)"
         cell.containerView.lblFeeder.text = mcd.getRecordById(entityName: .FeederList, id: data[indexPath.row].FeederId)["name"] as? String
         cell.containerView.lblStatus.text = mcd.getRecordById(entityName: .Status, id: data[indexPath.row].Status)["name"] as? String

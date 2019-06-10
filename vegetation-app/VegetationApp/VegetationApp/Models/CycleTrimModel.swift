@@ -9,6 +9,7 @@
 import Foundation
 
 class CycleTrimModel:Decodable,Encodable{
+    let title : String?
     let rowId: Int
     let workOrderId: Int?
     var feederId: Int
@@ -50,6 +51,7 @@ class CycleTrimModel:Decodable,Encodable{
     let poleId : Int?
     
     enum CodingKeys: String, CodingKey {
+        case title = "Title"
         case rowId = "ROWDId"
         case workOrderId = "WorkOrderId"
         case feederId = "FeederId"
@@ -101,6 +103,7 @@ class CycleTrimModel:Decodable,Encodable{
     
     
     enum encodingKeys : String,CodingKey {
+        case title = "title"
         case rowId = "rowId"
         case workOrderId = "workOrderId"
         case feederId = "feederId"
@@ -154,7 +157,8 @@ class CycleTrimModel:Decodable,Encodable{
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: encodingKeys.self)
-    
+        try container.encode(title, forKey: .title)
+
         try container.encode(rowId, forKey: .rowId)
         try container.encode(workOrderId, forKey: .workOrderId)
         try container.encode(feederId, forKey: .feederId)
@@ -204,7 +208,8 @@ class CycleTrimModel:Decodable,Encodable{
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        
+        title =  try values.decode(String?.self, forKey: .title)
+
         rowId = try values.decode(Int.self, forKey: .rowId)
         workOrderId = try values.decode(Int?.self, forKey: .workOrderId)
         feederId = try values.decode(Int.self, forKey: .feederId)

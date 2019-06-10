@@ -291,9 +291,33 @@ extension UIView{
     func hideLoad(){
         //let view : UIView = self
         let viewToRemove = viewWithTag(999)
-        
         viewToRemove?.removeFromSuperview()
     }
+    
+    func hideLoadOtherView(){
+        //let view : UIView = self
+        let viewToRemove = viewWithTag(9999)
+        viewToRemove?.removeFromSuperview()
+    }
+    
+    
+    func showLoadOtherFormat(title:String="Please Wait...",desc:String=""){
+        let view : UIView = self
+        let rect = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+        let loadingSubView =  Bundle.main.loadNibNamed("LoadingViewOtherFormat", owner: self, options: nil)?[0] as! LoadingViewOtherFormat
+        loadingSubView.tag = 9999
+        loadingSubView.alpha = 1
+        loadingSubView.backgroundColor = UIColor.clear
+        loadingSubView.frame = rect
+        loadingSubView.lblWaitTitle.text = title
+        loadingSubView.lblWaitDescription.text = desc
+        loadingSubView.activity.startAnimating()
+    
+        view.addSubview(loadingSubView)
+        self.bringSubviewToFront(loadingSubView)
+    }
+    
+   
     
     //this will add warning message to views
     func addWarningMessage(message : String){

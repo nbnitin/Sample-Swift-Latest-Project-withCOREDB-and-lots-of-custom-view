@@ -11,7 +11,7 @@ import UIKit
 
 class ResetPassword: UIViewController{
     //variables
-    
+    var oldPassword : String!
     
     //outlets
     @IBOutlet weak var txtPassword: UITextField!
@@ -33,6 +33,17 @@ class ResetPassword: UIViewController{
         self.present(vc!, animated: false, completion: nil)
     }
     
+    //Mark:- Function helps to take you to home screen
+    func showHome(){
+        let sb = UIStoryboard(name: "Home", bundle: nil) //Home
+        let vc = sb.instantiateInitialViewController()
+        
+        let window = UIWindow()
+        window.makeKey()
+        window.rootViewController = vc
+        self.present(vc!, animated: false, completion: nil)
+    }
+    
     //Mark:- submit button action
     @IBAction func btnSubmit(_ sender: Any) {
         
@@ -45,11 +56,11 @@ class ResetPassword: UIViewController{
         self.view.showLoad()
         let apiHandler = ApiHandler()
         var parameters :[String:String] = [:]
-      //  parameters["UserId"] = txtEmail.text!
-        parameters["oldPassword"] = ""
+        parameters["Emailid"] = (GetSaveUserDetailsFromUserDefault.getDetials())?.Email
+        parameters["oldPassword"] = oldPassword
         parameters["newPassword"] = txtPassword.text!
         
-        apiHandler.sendPostRequestTypeSecond(url: apiUrl.forgotPassword,parameters:parameters, completionHandler: { response,error in
+        apiHandler.sendPostRequestTypeSecond(url: apiUrl.resetPassword,parameters:parameters, completionHandler: { response,error in
             print(response)
             self.view.hideLoad()
             
@@ -60,6 +71,17 @@ class ResetPassword: UIViewController{
             
             if((response["Status"] as! Int) != 0){
                 do{
+                    let user = GetSaveUserDetailsFromUserDefault.getDetials()
+                    user?.IsDefaultPassword = false
+                   
+                    if #available(iOS 11.0, *) {
+                        UserDefaults.standard.removeObject(forKey: "userDetails")
+                    } else {
+                        GetSaveUserDetailsFromUserDefault.removeDataFilePath()
+                    }
+                    GetSaveUserDetailsFromUserDefault.saveUserDetails(userTemp: user!)
+                    UserDefaults.standard.removeObject(forKey: "oldPassword")
+                    self.showHome()
                 } catch{
                     print("json error: \(error)")
                 }

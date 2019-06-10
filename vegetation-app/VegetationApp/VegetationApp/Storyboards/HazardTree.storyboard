@@ -95,7 +95,7 @@
                         <outlet property="hazardTreeCollectionView" destination="A6F-a2-8rF" id="BcV-pY-OA7"/>
                         <outlet property="navigationBar" destination="FR9-he-KwK" id="wWh-Uf-oEv"/>
                         <segue destination="noi-jB-YtI" kind="show" id="Ut3-1R-YLu"/>
-                        <segue destination="U1u-Ic-JaD" kind="show" identifier="addNewCycleTrim" id="hcr-sD-lSU"/>
+                        <segue destination="U1u-Ic-JaD" kind="show" identifier="addNewHazardTree" id="hcr-sD-lSU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K8u-mT-JTX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -154,7 +154,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D1u-BV-bCA">
                                         <rect key="frame" x="25" y="327" width="325" height="47"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Change Status" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tKa-XA-DNf" customClass="DropDownField" customModule="VegetationApp" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Change Status" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tKa-XA-DNf" customClass="PopUpPickers" customModule="VegetationApp" customModuleProvider="target">
                                                 <rect key="frame" x="8" y="0.0" width="225" height="47"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="225" id="a1l-YR-Cea"/>
@@ -273,6 +273,11 @@
                                     <constraint firstAttribute="trailing" secondItem="D1u-BV-bCA" secondAttribute="trailing" constant="25" id="xAO-V4-7NQ"/>
                                 </constraints>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GAl-4A-e1K">
+                                <rect key="frame" x="263" y="558" width="96" height="89"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <state key="normal" title="Button" image="addButton"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -287,6 +292,7 @@
                         <viewLayoutGuide key="safeArea" id="Enj-Nc-iIu"/>
                     </view>
                     <connections>
+                        <outlet property="btnGoToWorkOrderFlow" destination="GAl-4A-e1K" id="UKN-2L-N2a"/>
                         <outlet property="btnSubmit" destination="6XR-86-ksZ" id="QU1-8O-9Ob"/>
                         <outlet property="clickToNavigateView" destination="9nl-AP-Dfu" id="UbW-8P-OJ4"/>
                         <outlet property="historyContainerView" destination="gUW-nn-0FP" id="X9H-SG-6cb"/>
@@ -298,11 +304,20 @@
                         <outlet property="scrollV" destination="ueb-yz-ikl" id="1c5-d1-BjX"/>
                         <outlet property="statusContainer" destination="D1u-BV-bCA" id="JI2-pH-NBR"/>
                         <outlet property="txtStatus" destination="tKa-XA-DNf" id="tr8-j7-BNU"/>
+                        <segue destination="2Nx-Fz-9Jf" kind="show" identifier="goToWorkFlow" id="FFe-J1-fzY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xKY-I3-VuK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1752.8" y="-449.32533733133437"/>
+        </scene>
+        <!--Step1VC-->
+        <scene sceneID="4W6-cc-kEz">
+            <objects>
+                <viewControllerPlaceholder storyboardName="WorkOrder" referencedIdentifier="Step1VC" id="2Nx-Fz-9Jf" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wpd-EW-Thf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2318" y="-762"/>
         </scene>
         <!--Add Hazard TreeVC-->
         <scene sceneID="aG1-Og-sdh">

@@ -28,7 +28,9 @@ class Menu: UITableViewController,subMenuCellDelegate {
         let mcd = MasterDataController()
         
         lblUserName.text = GetSaveUserDetailsFromUserDefault.getDetials()?.FirstName
-        lblDesgination.text = mcd.getRecordById(entityName: .UserRole, id: GetSaveUserDetailsFromUserDefault.getDetials()!.Type)["name"] as! String
+        lblDesgination.text = mcd.getRecordById(entityName: .UserRole, id: GetSaveUserDetailsFromUserDefault.getDetials()!.Type)["name"] as? String
+        let url = apiUrl.userImage+GetSaveUserDetailsFromUserDefault.getDetials()!.Image
+        imgUserProfile.sd_setImage(with: URL(string:url), completed: nil)
         
     }
     
@@ -54,7 +56,7 @@ class Menu: UITableViewController,subMenuCellDelegate {
         if ( indexPath.row == 0 ){
             return 190
         } else if ( indexPath.row == 1 ) {
-            return self.view.frame.height - (190 + 115)
+            return self.view.frame.height - (190)
         }
         return 115
     }
@@ -69,33 +71,42 @@ class Menu: UITableViewController,subMenuCellDelegate {
         } else if ( row == 2 ) {
             performSegue(withIdentifier: "cycleTrim", sender: self)
         } else if ( row == 3 ) {
-            //performSegue(withIdentifier: "workOrder", sender: self)
-        } else if ( row == 5 ){
+            performSegue(withIdentifier: "hotSpot", sender: self)
+        } else if ( row == 4  ) {
             
-            let mcd = MasterDataController()
-            
-            //clearing all stored data
-            EntityName.allCases.forEach{
-                mcd.deleteData(entityName:$0)
-            }
-            
-            if #available(iOS 11.0, *) {
-                UserDefaults.standard.removeObject(forKey: "userDetails")
-            } else {
-               GetSaveUserDetailsFromUserDefault.removeDataFilePath()
-            }
-            
-           let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateInitialViewController()
-            let window = UIWindow()
-            window.rootViewController =  vc
-            window.makeKeyAndVisible()
-            self.present(vc!, animated: false, completion: nil)
-
+            performSegue(withIdentifier: "workOrder", sender: self)
+        } else if (row == 6 ) {
+            //logOut()
+        } else if ( row == 7 ) {
+            logOut()
         }
+           
+        
     }
     
     
-    
+    func logOut(){
+        let mcd = MasterDataController()
+        
+        //clearing all stored data
+        EntityName.allCases.forEach{
+            mcd.deleteData(entityName:$0)
+        }
+        
+        if #available(iOS 11.0, *) {
+            UserDefaults.standard.removeObject(forKey: "userDetails")
+        } else {
+            GetSaveUserDetailsFromUserDefault.removeDataFilePath()
+        }
+        UserDefaults.standard.removeObject(forKey: "token")
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateInitialViewController()
+        let window = UIWindow()
+        window.rootViewController =  vc
+        window.makeKeyAndVisible()
+        self.present(vc!, animated: false, completion: nil)
+
+    }
     
  }

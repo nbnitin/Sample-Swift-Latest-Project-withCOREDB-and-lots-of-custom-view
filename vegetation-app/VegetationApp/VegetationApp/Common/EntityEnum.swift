@@ -25,3 +25,25 @@ enum EntityName:String,CaseIterable {
     case UserRole = "UserRole"
     case Poles = "Poles"
 }
+
+enum WorkType: Int{
+    case HOTSPOT = 1
+    case SKYLINE = 2
+    case TREEREMOVAL = 3
+}
+
+enum filterTypePrescription: String{
+    case SkyLine = "Skyline"
+    case TreeRemoval = "Tree Removal"
+}
+
+enum ModuleType : Int {
+    case HAZARDTREE = 1
+    case CYCLETRIM = 2
+    case HOTSPOT = 3
+    case WORKORDER = 4
+}
+
+
+let workTypeString : [Int:String] = [1:"Hot Spot",2:"Skyline",3:"Tree Removal"]
+let workTypeValue : [Int] = [1,2,3]

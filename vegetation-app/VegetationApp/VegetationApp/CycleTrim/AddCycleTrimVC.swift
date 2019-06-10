@@ -92,7 +92,7 @@ class AddCycleTrimVC: UIViewController,UITableViewDataSource,UITableViewDelegate
             
             let location = CLLocation(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
             self.setCurrentAddress(location: location)
-           
+            navigationBar.lblTitle.text = "Edit Cycle Trim"
         } else {
             //set location first time
             getLocation = GetUserLocation()
@@ -167,18 +167,19 @@ class AddCycleTrimVC: UIViewController,UITableViewDataSource,UITableViewDelegate
     
     //Mark:- setup view for editing
     private func setupViewForEditing(){
-        
-        let mcd = MasterDataController()
-        
+        addCycleTrimForm.txtTitle.text = cycleTrimData.title
+        addCycleTrimForm.txtTitle.superview?.backgroundColor = UIColor.white
+        addCycleTrimForm.txtTitle.isEnabled = true
         addCycleTrimForm.setPoleAccordingToFeeder(nearestFeederId: cycleTrimData.feederId)
         
         addCycleTrimForm.txtFeederNo.setText(EntityName: .FeederList, recId: cycleTrimData.feederId)
         
      //   addCycleTrimForm.txtPoleOfOrigin.text = mcd.getRecordById(entityName: .Poles, id: cycleTrimData.poleId ?? 0)["name"] as? String
-        addCycleTrimForm.txtTreeDensity.text = mcd.getRecordById(entityName: .TreeDensity, id: cycleTrimData.treeDensity) ["name"] as? String
-        addCycleTrimForm.txtLineConstruction.text = mcd.getRecordById(entityName: .LineConstruction, id: cycleTrimData.lineContruction!) ["name"] as? String
-        addCycleTrimForm.txtAccessToLine.text = mcd.getRecordById(entityName: .AccessToLine, id: cycleTrimData.accessToLine) ["name"] as? String
-        addCycleTrimForm.txtCurrentCondition.text = mcd.getRecordById(entityName: .CurrentConditionCycleTrim, id: cycleTrimData.currentCondition) ["name"] as? String
+        addCycleTrimForm.txtTreeDensity.setText(EntityName: .TreeDensity, recId: cycleTrimData.treeDensity)
+        addCycleTrimForm.txtLineConstruction.setText(EntityName: .LineConstruction, recId: cycleTrimData.lineContruction!)
+        addCycleTrimForm.txtAccessToLine.setText(EntityName: .AccessToLine, recId: cycleTrimData.accessToLine)
+        addCycleTrimForm.txtCurrentCondition.setText(EntityName: .CurrentConditionCycleTrim, recId: cycleTrimData.currentCondition)
+        
         addCycleTrimForm.txtComment.text = cycleTrimData.comments
         addCycleTrimForm.txtClearance.text = "\(cycleTrimData.clearance)"
         
@@ -539,6 +540,8 @@ class AddCycleTrimVC: UIViewController,UITableViewDataSource,UITableViewDelegate
         self.setImageWithTitle.txtTitle.text = ""
         self.setImageWithTitle.btnSend.isEnabled = true
         self.setImageWithTitle.btnSend.isHidden = false
+        self.setImageWithTitle.btnShare.isEnabled = false
+        self.setImageWithTitle.btnShare.isHidden = true
         cropViewController.dismiss(animated: true, completion: nil)
     }
     
@@ -564,19 +567,16 @@ class AddCycleTrimVC: UIViewController,UITableViewDataSource,UITableViewDelegate
         let indexPath = IndexPath(item: index, section: 0)
         let cell = self.addCycleTrimForm.addImageCollView.cellForItem(at: indexPath) as! NewlyAddedImageCell
        
-        if ( cycleTrimData != nil ) {
+        if ( image[index - 1].Id as? Int == 1 ) {
             let treeImages = cycleTrimData.rwTreeImages
            
-            if ( index < treeImages!.count ) {
+            if ( index - 1 < treeImages!.count ) {
                 let imageName = treeImages![index - 1].imageFullPathOriginal!
                 let url = URL(string:imageName)
-                setImageWithTitle.activity.startAnimating()
-                setImageWithTitle.loadingContainer.isHidden = false
+                setImageWithTitle.contentView.showLoadOtherFormat(title: "Please wait...", desc: "Loading high resolution image.")
                 self.setImageWithTitle.img.sd_setImage(with: url, completed:  {
                     (image, error, cacheType, url) in
-                    self.setImageWithTitle.loadingContainer.isHidden = true
-                    self.setImageWithTitle.activity.stopAnimating()
-                    self.setImageWithTitle.activity.isHidden = true
+                        self.setImageWithTitle.contentView.hideLoadOtherView()
                     })
             } else {
                 self.setImageWithTitle.img.image = cell.imgAddImage.image
@@ -602,8 +602,7 @@ class AddCycleTrimVC: UIViewController,UITableViewDataSource,UITableViewDelegate
     @objc private func addCycleTrim(_ sender:UIButton){
         
         
-        let feederData = addCycleTrimForm.txtFeederNo.selectedId
-
+       
         
         
         if(validateForm()){
@@ -632,7 +631,10 @@ class AddCycleTrimVC: UIViewController,UITableViewDataSource,UITableViewDelegate
         
         
         //let poleOfOrigin = addCycleTrimForm.txtPoleOfOrigin.getData(obj:addCycleTrimForm.txtPoleOfOrigin) as? Int
+        let title = addCycleTrimForm.txtTitle.text!
         
+        let feederData = addCycleTrimForm.txtFeederNo.selectedId
+
         let poleOfOrigin = 0
 
         
@@ -650,7 +652,7 @@ class AddCycleTrimVC: UIViewController,UITableViewDataSource,UITableViewDelegate
        
         
         var parameter : [String:Any] = [:]
-        
+        parameter["Title"] = title
         parameter["FeederId"] = feederData
         parameter["TreeDensity"] = treeDensity
         parameter["Comment"] = comment
@@ -823,7 +825,7 @@ class AddCycleTrimVC: UIViewController,UITableViewDataSource,UITableViewDelegate
     }
     
     private func confirmToAddMore(){
-        let alert = UIAlertController(title: "Confirm?", message: "Do you want to add more hazard tree ?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Submitted", message: "Do you want to create more?", preferredStyle: .alert)
         let yesAction = UIAlertAction(title: "Yes", style: .default, handler:nil)
         let noAciton = UIAlertAction(title: "No", style: .cancel, handler: {(UIAlertAction) in
             self.navigationController?.popToRootViewController(animated: true)
@@ -848,6 +850,7 @@ class AddCycleTrimVC: UIViewController,UITableViewDataSource,UITableViewDelegate
                 txt?.text = ""
             }
         }
+       
         treeSpeciesData.removeAll()
         addCycleTrimForm.newlyAddedTreeSpeciesHeightConstraint.constant = 0
         addCycleTrimForm.newlyAddedTreeSpeciesTableView.reloadData()

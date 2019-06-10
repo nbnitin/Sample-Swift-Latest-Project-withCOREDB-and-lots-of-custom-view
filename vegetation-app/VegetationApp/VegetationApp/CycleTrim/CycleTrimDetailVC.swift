@@ -8,10 +8,10 @@
 
 import UIKit
 
-class CycleTrimDetailVC: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+class CycleTrimDetailVC: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITextFieldDelegate,CustomTableProtocol {
    
     //variables
-    var details = ["Feeder No.","Tree Species","Tree Density","Segment Miles","Feeder Substation","Last Trimmed Clearance (ft.)","Last Trimmed","Customers On The Line","Line Construction","Access To Line","OC Assigned","Clearance (ft.)","Comment"]
+    var details = ["Title","Feeder No.","Tree Species","Tree Density","Segment Miles","Feeder Substation","Last Trimmed Clearance (ft.)","Last Trimmed","Customers Count","Line Construction","Access To Line","OC Assigned","Clearance (ft.)","Comment"]
     var values = ["12345","Pole No 1234","Oak (60%), Mapple (40%)","High","13","Romand Wood Land, CA","03ft as of 03 feb 2018","Mar, 2019","03","Vertical","Airboart","Nick","03","ABC"]
     var history = ["Cycle trim created by Daniel in 03 March,2019 at 08:00pm","Reviewed by Paul on 04 March,2019 at 08:30pm","Assigned to mike on 05 March,2019 at 08:00pm","Mark as completed by Mike on 06 March, 2019 at 08:00pm"]
     let height = 80
@@ -25,9 +25,10 @@ class CycleTrimDetailVC: UIViewController, UICollectionViewDelegate,UICollection
     var image : [ImageData]! = []
     var setImageWithTitle : SetImageWithTitle!
     var showEditButton : Bool = false
-    
+    var didOnce : Bool = false
+    var isFromNotification = false
+
     //outlets
-   
     @IBOutlet weak var navigationBar: Navigation!
     @IBOutlet weak var historyContainerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageCollView: UICollectionView!
@@ -35,11 +36,13 @@ class CycleTrimDetailVC: UIViewController, UICollectionViewDelegate,UICollection
     @IBOutlet weak var scrollV: UIScrollView!
     @IBOutlet weak var btnSubmit: UIButton!
     @IBOutlet weak var statusContainer: UIView!
-    @IBOutlet weak var txtStatus: DropDownField!
+    @IBOutlet weak var txtStatus: PopUpPickers!
     @IBOutlet weak var lblHistoryTitle: UILabel!
     @IBOutlet weak var historyContainerView: UIView!
     
     @IBOutlet weak var clickToNavigateView: UIView!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,14 +85,20 @@ class CycleTrimDetailVC: UIViewController, UICollectionViewDelegate,UICollection
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(navigateAction(_:)))
         clickToNavigateView.addGestureRecognizer(tapGesture)
         clickToNavigateView.isUserInteractionEnabled = true
+        
+        txtStatus.delegate = self
     }
     
     //Mark:- setting scrollview content size
     override func viewDidAppear(_ animated: Bool) {
         
         super.viewDidAppear(true)
+       
+        if ( !didOnce ) {
         //mark:- view setting up
-        setupData()
+            setupData()
+            didOnce = true
+        }
         
         
     }
@@ -115,6 +124,42 @@ class CycleTrimDetailVC: UIViewController, UICollectionViewDelegate,UICollection
         vc.cycleTrimData = self.cycleTrimData
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        
+        
+        guard let txtObj = textField as? PopUpPickers else {return true}
+        
+        let vx = CustomTable()
+        vx.frame = CGRect(x: 0, y: 0, width: (self.view.frame.width), height: (self.view.frame.height))
+        vx.contentView.frame = vx.frame
+        vx.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.6)
+        self.view.addSubview(vx)
+        vx.navigationView.navigationTitle = txtObj.placeholder!
+        
+        vx.alpha = 0.0
+        vx.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        //view animation
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {
+            vx.alpha = 1.0;
+            vx.transform = CGAffineTransform.identity
+        }, completion: { _ in
+            vx.alpha = 1.0
+            vx.transform = CGAffineTransform.identity
+        })
+        
+        self.view.bringSubviewToFront(vx)
+        vx.selectedTextBoxObj = txtObj
+        vx.navigationView.showRightButton = false
+        vx.selectedId = txtObj.selectedId
+        vx.EntityName = txtObj.EntityName
+        vx.customTableDelegate = self
+        return false
+    }
+    
+    func valueSelected(obj: PopUpPickers) {}
+    
     
     
     //Mark:- setting up data
@@ -148,7 +193,7 @@ class CycleTrimDetailVC: UIViewController, UICollectionViewDelegate,UICollection
 
             }
         }
-
+        values.append(cycleTrimData.title ?? "")
         values.append(mcd.getRecordById(entityName: .FeederList, id: cycleTrimData.feederId)["name"] as? String ?? "N/A")
        // values.append(mcd.getRecordById(entityName: .Poles, id: cycleTrimData.poleId ?? 0)["name"] as? String ?? "N/A")
         values.append(cycleTrimData.speciesName ?? "N/A")
@@ -160,7 +205,9 @@ class CycleTrimDetailVC: UIViewController, UICollectionViewDelegate,UICollection
         
         values.append(cycleTrimData!.feederSubstation ?? "N/A")
         
-        values.append("\(cycleTrimData!.lastTrimHeight)")
+        let lastTrimHeight = cycleTrimData!.lastTrimHeight == 0 ? "" : "\(cycleTrimData!.lastTrimHeight)"
+        
+        values.append(lastTrimHeight)
        
         if ( cycleTrimData.lastTrimAt != "" ) {
             values.append("\(DateFormatters.shared.dateFormatter2.string(from: DateFormatters.shared.dateFormatterNormal.date(from: cycleTrimData!.lastTrimAt ?? "")!))")
@@ -203,6 +250,8 @@ class CycleTrimDetailVC: UIViewController, UICollectionViewDelegate,UICollection
             
         }
         
+        txtStatus.setText(EntityName: .Status, recId: cycleTrimData.status)
+        
         setupInitialView()
         setupHistoryView()
         
@@ -211,7 +260,23 @@ class CycleTrimDetailVC: UIViewController, UICollectionViewDelegate,UICollection
     
     //Mark:- pop to vc
     @objc func back(_ sender: UIButton){
-        self.navigationController?.popViewController(animated: true)
+        if ( !isFromNotification ) {
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            if self.navigationController?.viewControllers.count == 0 {
+                let storyBoard = UIStoryboard.init(name: "Home", bundle: nil)
+                let vc = storyBoard.instantiateInitialViewController()
+                let window = UIWindow()
+                window.rootViewController = vc
+                window.makeKeyAndVisible()
+                
+                present(vc!, animated: true, completion: {() in
+                    //self.dismiss(animated: true, completion: nil)
+                })
+            } else {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
     
     //Mark:- creating dotted view and setting data into it, also calculating totaldisplacement and arranging collection and remaning views here too
@@ -454,13 +519,10 @@ class CycleTrimDetailVC: UIViewController, UICollectionViewDelegate,UICollection
         let images = cycleTrimData.rwTreeImages
         let imageName = images![index].imageFullPathOriginal
         let url = URL(string:imageName!)
-        setImageWithTitle.activity.startAnimating()
-        setImageWithTitle.loadingContainer.isHidden = false
+        setImageWithTitle.contentView.showLoadOtherFormat(title: "Please wait...", desc: "Loading high resolution image.")
         self.setImageWithTitle.img!.sd_setImage(with: url, completed: {
             (image, error, cacheType, url) in
-            self.setImageWithTitle.loadingContainer.isHidden = true
-            self.setImageWithTitle.activity.stopAnimating()
-            self.setImageWithTitle.activity.isHidden = true
+            self.setImageWithTitle.contentView.hideLoadOtherView()
         })
         self.view.addSubview(self.setImageWithTitle.contentView)
         self.view.bringSubviewToFront(self.setImageWithTitle.contentView)
@@ -476,7 +538,7 @@ class CycleTrimDetailVC: UIViewController, UICollectionViewDelegate,UICollection
         let apiHandler = ApiHandler()
         let userData = GetSaveUserDetailsFromUserDefault.getDetials()
         let userId = userData!.UserId
-        let status = txtStatus.getData(obj: txtStatus) as? Int
+        let status = txtStatus.selectedId
         let trimId = cycleTrimData.rowId
         
         var parameters : [String:AnyObject] = [String:AnyObject]()

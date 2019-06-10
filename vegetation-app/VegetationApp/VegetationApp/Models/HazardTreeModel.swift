@@ -9,6 +9,7 @@
 import Foundation
 
 class HazardTreeModel:Decodable {
+    let Title : String?
     let HazardTreeID: Int
     let WorkOrderID: Int
     let FeederId: Int
@@ -46,9 +47,10 @@ class HazardTreeModel:Decodable {
     let AuditList : [AuditList]?
     let PoleId : Int?
     
-    init(HazardTreeID: Int,WorkOrderID: Int,FeederId: Int,Prescription: Int,TreeSpeciesId:Int,DistLine: Double,RiskLevel: Int,DistBrush: Int,Comments: String, GeoLat: Double,GeoLong: Double,WeatherData: String,Status: Int,AssignedTo: Int, CreatedBy: Int,UpdatedBy: Int,CreatedAt: String,UpdatedAt: String,HoursSpend: Int, Condition: Int,OCAssigned: Int,FeederSubstation: String,FeederCustomerCount: Int,
+    init(Title:String?,HazardTreeID: Int,WorkOrderID: Int,FeederId: Int,Prescription: Int,TreeSpeciesId:Int,DistLine: Double,RiskLevel: Int,DistBrush: Int,Comments: String, GeoLat: Double,GeoLong: Double,WeatherData: String,Status: Int,AssignedTo: Int, CreatedBy: Int,UpdatedBy: Int,CreatedAt: String,UpdatedAt: String,HoursSpend: Int, Condition: Int,OCAssigned: Int,FeederSubstation: String,FeederCustomerCount: Int,
          Diameter: Int,AccessToTree: Int,EnvCondition: String,CreatedByName: String,AssignedToName: String,Identifier: String,SpeciesName: String, RiskLavelValue: String,StatusName: String,HzTreeImages : [HazardTreeImages]?,InSideRow:Bool?,AuditList:[AuditList],PoleId:Int?)
     {
+        self.Title = Title
         self.InSideRow = InSideRow
         self.HazardTreeID = HazardTreeID
         self.WorkOrderID = WorkOrderID

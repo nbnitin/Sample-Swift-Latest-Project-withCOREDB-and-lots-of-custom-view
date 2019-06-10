@@ -10,12 +10,15 @@ import UIKit
 import IQKeyboardManagerSwift
 import CoreData
 import Firebase
+import FirebaseMessaging
 import SDWebImage
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate{
 
     var window: UIWindow?
+    let gcmMessageIDKey = "gcm.message_id"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -33,37 +36,132 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 //        SDImageCache.shared().clearMemory()
 //        SDImageCache.shared().clearDisk()
         
-        if #available(iOS 11.0, *) {
-            if let _ = UserDefaults.standard.value(forKey: "userDetails") as? NSData {
-                let sb = UIStoryboard(name: "Home", bundle: nil) //Home
-                let vc = sb.instantiateInitialViewController()
-                window?.rootViewController = vc
-                window?.makeKeyAndVisible()
+            if let user = GetSaveUserDetailsFromUserDefault.getDetials() {
+                
+                if ( !user.IsDefaultPassword ) {
+                    let sb = UIStoryboard(name: "Home", bundle: nil) //Home
+                    let vc = sb.instantiateInitialViewController()
+                    window?.rootViewController = vc
+                    window?.makeKeyAndVisible()
+                } else {
+                    let sb = UIStoryboard(name: "Main", bundle: nil) //Home
+                    let vc = sb.instantiateViewController(withIdentifier: "changePassword") as! ResetPassword
+                    vc.oldPassword = UserDefaults.standard.value(forKey:"oldPassword") as! String
+                    window?.rootViewController = vc
+                    window?.makeKeyAndVisible()
+                }
             } else {
                 let sb = UIStoryboard(name: "Main", bundle: nil) //Home
                 let vc = sb.instantiateInitialViewController()
                 window?.rootViewController = vc
                 window?.makeKeyAndVisible()
             }
-        } else {
-            let user = GetSaveUserDetailsFromUserDefault.getDetials()
+        
+        
+        
+        // [START set_messaging_delegate]
+        Messaging.messaging().delegate = self
+        // [END set_messaging_delegate]
+        // Register for remote notifications. This shows a permission dialog on first run, to
+        // show the dialog at a more appropriate time move this registration accordingly.
+        // [START register_for_notifications]
+        if #available(iOS 10.0, *) {
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.current().delegate = self
             
-            if  let _ =  user?.UserId {
-                let sb = UIStoryboard(name: "Home", bundle: nil) //Home
-                let vc = sb.instantiateInitialViewController()
-                window?.rootViewController = vc
-                window?.makeKeyAndVisible()
-            } else {
-                let sb = UIStoryboard(name: "Main", bundle: nil) //Home
-                let vc = sb.instantiateInitialViewController()
-                window?.rootViewController = vc
-                window?.makeKeyAndVisible()
-            }
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+            
+        } else {
+            let settings: UIUserNotificationSettings =
+                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
         }
+        UNUserNotificationCenter.current().delegate = self
+        
+        // Define the custom actions.
+        let acceptAction = UNNotificationAction(identifier: "ACCEPT_ACTION",
+                                                title: "Accept",
+                                                options: UNNotificationActionOptions(rawValue: 0))
+        let declineAction = UNNotificationAction(identifier: "DECLINE_ACTION",
+                                                 title: "Decline",
+                                                 options: UNNotificationActionOptions(rawValue: 0))
+        // Define the notification type
+        if #available(iOS 11.0, *) {
+            let meetingInviteCategory =
+                UNNotificationCategory(identifier: "WORK_ORDER_INVITATION",
+                                       actions: [acceptAction, declineAction],
+                                       intentIdentifiers: [],
+                                       hiddenPreviewsBodyPlaceholder: "",
+                                       options: .customDismissAction)
+        
+        // Register the notification type.
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.setNotificationCategories([meetingInviteCategory])
+
+        }
+
+        application.registerForRemoteNotifications()
+        
+        // [END register_for_notifications]
+        return true
                     
         
-        return true
     }
+    
+    //FCM
+    // [START receive_message]
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
+        // If you are receiving a notification message while your app is in the background,
+        // this callback will not be fired till the user taps on the notification launching the application.
+        // TODO: Handle data of notification
+        // With swizzling disabled you must let Messaging know about the message, for Analytics
+        // Messaging.messaging().appDidReceiveMessage(userInfo)
+        // Print message ID.
+        if let messageID = userInfo[gcmMessageIDKey] {
+            print("Message ID: \(messageID)")
+        }
+        
+        // Print full message.
+        print(userInfo)
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        // If you are receiving a notification message while your app is in the background,
+        // this callback will not be fired till the user taps on the notification launching the application.
+        // TODO: Handle data of notification
+        // With swizzling disabled you must let Messaging know about the message, for Analytics
+        // Messaging.messaging().appDidReceiveMessage(userInfo)
+        // Print message ID.
+        if let messageID = userInfo[gcmMessageIDKey] {
+            print("Message ID: \(messageID)")
+        }
+        
+        // Print full message.
+        print(userInfo)
+        
+        completionHandler(UIBackgroundFetchResult.newData)
+    }
+    // [END receive_message]
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Unable to register for remote notifications: \(error.localizedDescription)")
+    }
+    
+    
+    
+    // This function is added here only for debugging purposes, and can be removed if swizzling is enabled.
+    // If swizzling is disabled then this function must be implemented so that the APNs token can be paired to
+    // the FCM registration token.
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("APNs token retrieved: \(deviceToken)")
+        
+        // With swizzling disabled you must set the APNs token here.
+        // Messaging.messaging().apnsToken = deviceToken
+    }
+
     
    
     func applicationWillResignActive(_ application: UIApplication) {
@@ -131,5 +229,171 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         }
     }
 
+}
+
+// [START ios_10_message_handling]
+@available(iOS 10, *)
+extension AppDelegate : UNUserNotificationCenterDelegate {
+    
+    // Receive displayed notifications for iOS 10 devices.
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let userInfo = notification.request.content.userInfo
+        
+        // With swizzling disabled you must let Messaging know about the message, for Analytics
+        // Messaging.messaging().appDidReceiveMessage(userInfo)
+        // Print message ID.
+        if let messageID = userInfo[gcmMessageIDKey] {
+            print("Message ID: \(messageID)")
+        }
+        
+        // Print full message.
+        print(userInfo)
+        
+        // Change this to your preferred presentation option, helps to show notification when app is in foreground
+        completionHandler([.alert,.sound,.badge])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo as! [String:AnyObject]
+        // Print message ID.
+        if let messageID = userInfo[gcmMessageIDKey] {
+            print("Message ID: \(messageID)")
+        }
+        
+        if let messageWorkOrderID = userInfo["Id"]   {
+            let moduleType = (userInfo["ModuleType"] as! NSString).integerValue
+            let id = (messageWorkOrderID as! NSString).integerValue
+            // Perform the task associated with the action.
+            switch response.actionIdentifier {
+            case "ACCEPT_ACTION":
+                NotificationHandler.shared.updateWorkOrder(status: 1,workOrderId: (messageWorkOrderID as! NSString).integerValue,assignTo:-1,completionHandler:{(response,error) in
+                    
+                    
+                    
+                })
+                break
+                
+            case "DECLINE_ACTION":
+                NotificationHandler.shared.updateWorkOrder(status: -1,workOrderId: (messageWorkOrderID as! NSString).integerValue,assignTo:-1,completionHandler:{(response,error) in
+                    
+                    
+                    
+                })
+                break
+                
+                // Handle other actions…
+                
+            default:
+                let navigationController    = self.window?.rootViewController as? UINavigationController
+                navigationController?.view.showLoad()
+                switch moduleType {
+                case ModuleType.HAZARDTREE.rawValue:
+                    NotificationHandler.shared.getData(type: moduleType, id: id, completionHandler: {(response,error) in
+                        navigationController?.view.hideLoad()
+
+                        if ( error != nil ) {
+                            navigationController?.showAlert(str: (error?.localizedDescription)!)
+                            return
+                        }
+                        
+                        let hazardTreeData = response as! HazardTreeModel
+                        let storyBoard = UIStoryboard.init(name: "HazardTree", bundle: nil)
+                        let vc = storyBoard.instantiateViewController(withIdentifier: "hazardTreeDetailVC") as! HazardTreeDetailVC
+                        vc.hazardTreeData = hazardTreeData
+                        //vc.isFromNotification = true
+                        navigationController?.visibleViewController?.navigationController?.pushViewController(vc, animated: true)
+                    })
+                    break
+                case ModuleType.CYCLETRIM.rawValue:
+                    NotificationHandler.shared.getData(type: moduleType, id: id, completionHandler: {(response,error) in
+                        navigationController?.view.hideLoad()
+
+                        if ( error != nil ) {
+                            navigationController?.showAlert(str: (error?.localizedDescription)!)
+                            return
+                        }
+                        
+                        let cycleTrimData = response as! CycleTrimModel
+                        let storyBoard = UIStoryboard.init(name: "CycleTrim", bundle: nil)
+                        let vc = storyBoard.instantiateViewController(withIdentifier: "cycleTrimDetailVC") as! CycleTrimDetailVC
+                        vc.cycleTrimData = cycleTrimData
+                        //vc.isFromNotification = true
+                        navigationController?.visibleViewController?.navigationController?.pushViewController(vc, animated: true)
+                    })
+                    break
+                case ModuleType.HOTSPOT.rawValue:
+                    NotificationHandler.shared.getData(type: moduleType, id: id, completionHandler: {(response,error) in
+                        navigationController?.view.hideLoad()
+
+                        if (error != nil) {
+                            navigationController?.showAlert(str: (error?.localizedDescription)!)
+                            return
+                        }
+                        
+                        let hotSpotData = response as! HotSpotModel
+                        let storyBoard = UIStoryboard.init(name: "HotSpot", bundle: nil)
+                        let vc = storyBoard.instantiateViewController(withIdentifier: "hotSpotDetailVC") as! HotSpotDetailVC
+                        vc.hotSpotData = hotSpotData
+                        //vc.isFromNotification = true
+                        navigationController?.visibleViewController?.navigationController?.pushViewController(vc, animated: true)
+                    })
+                    break
+                    
+                default:
+                    NotificationHandler.shared.getData(type: moduleType, id: id, completionHandler: {(response,error) in
+                        navigationController?.view.hideLoad()
+                        
+                        if ( error != nil ) {
+                            navigationController?.showAlert(str: (error?.localizedDescription)!)
+                            return
+                        }
+
+                        let workOrderData = response as! WorkOrderModel
+                        let storyBoard = UIStoryboard.init(name: "WorkOrder", bundle: nil)
+                        let vc = storyBoard.instantiateViewController(withIdentifier: "workOrderDetailVC") as! WorkOrderDetailVC
+                        vc.workOrderData = workOrderData
+                        vc.isFromNotification = true
+                        navigationController?.visibleViewController?.navigationController?.pushViewController(vc, animated: true)
+                    })
+                    break
+                }
+                
+                break
+            }
+            
+        }
+       
+        // Print full message.
+        print(userInfo)
+        
+        completionHandler()
+    }
+    
+}
+// [END ios_10_message_handling]
+
+extension AppDelegate : MessagingDelegate {
+    // [START refresh_token]
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        print("Firebase registration token: \(fcmToken)")
+        UserDefaults.standard.set(fcmToken, forKey: "token")
+        
+//        let dataDict:[String: String] = ["token": fcmToken]
+//        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
+        // TODO: If necessary send token to application server.
+        // Note: This callback is fired at each app startup and whenever a new token is generated.
+    }
+    // [END refresh_token]
+    // [START ios_10_data_message]
+    // Receive data messages on iOS 10+ directly from FCM (bypassing APNs) when the app is in the foreground.
+    // To enable direct data messages, you can set Messaging.messaging().shouldEstablishDirectChannel to true.
+    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+        print("Received data message: \(remoteMessage.appData)")
+    }
+    // [END ios_10_data_message]
 }
 

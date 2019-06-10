@@ -9,10 +9,10 @@
 import UIKit
 import SDWebImage
 
-class HazardTreeDetailVC: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+class HazardTreeDetailVC: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,CustomTableProtocol,UITextFieldDelegate {
     
     //variables
-    var details = ["Tree Status","Feeder No.","Distance To Line (ft.)","Tree Species","Prescription","Current Condition","Diameter at Breast Height (in.)","Feeder Substation","Customer on the line","Access To tree","Environmental Conditions","OC Assigned","Comment"]
+    var details = ["Title","Tree Status","Feeder No.","Location in RoW","Distance To Line (ft.)","Tree Species","Prescription","Current Condition","Diameter at Breast Height (in.)","Feeder Substation","Customers Count","Access To tree","Environmental Conditions","OC Assigned","Comment"]
     var values : [String] = []
     var history = ["Cycle trim created by Daniel in 03 March,2019 at 08:00pm","Reviewed by Paul on 04 March,2019 at 08:30pm","Assigned to mike on 05 March,2019 at 08:00pm","Mark as completed by Mike on 06 March, 2019 at 08:00pm"]
     let height = 80
@@ -27,8 +27,10 @@ class HazardTreeDetailVC: UIViewController, UICollectionViewDelegate,UICollectio
     var setImageWithTitle : SetImageWithTitle!
     var showEditButton : Bool = false
     var ocAssignedName : String = ""
-    
+    var isFromNotification = false
+
     //outlets
+    @IBOutlet weak var btnGoToWorkOrderFlow: UIButton!
     @IBOutlet weak var navigationBar: Navigation!
     @IBOutlet weak var historyContainerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageCollView: UICollectionView!
@@ -36,7 +38,7 @@ class HazardTreeDetailVC: UIViewController, UICollectionViewDelegate,UICollectio
     @IBOutlet weak var scrollV: UIScrollView!
     @IBOutlet weak var btnSubmit: UIButton!
     @IBOutlet weak var statusContainer: UIView!
-    @IBOutlet weak var txtStatus: DropDownField!
+    @IBOutlet weak var txtStatus: PopUpPickers!
     @IBOutlet weak var lblHistoryTitle: UILabel!
     @IBOutlet weak var historyContainerView: UIView!
     
@@ -45,6 +47,9 @@ class HazardTreeDetailVC: UIViewController, UICollectionViewDelegate,UICollectio
         super.viewDidLoad()
         
         mcd = MasterDataController()
+        
+       
+       
         
         imageCollView.register(UINib(nibName: "NewlyAddedImageCell", bundle: nil), forCellWithReuseIdentifier: "newlyAddedCell")
         
@@ -82,6 +87,18 @@ class HazardTreeDetailVC: UIViewController, UICollectionViewDelegate,UICollectio
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(navigateAction(_:)))
         clickToNavigateView.addGestureRecognizer(tapGesture)
         clickToNavigateView.isUserInteractionEnabled = true
+        
+        txtStatus.delegate = self
+        
+        //deciding eighter to show or not work order flow button
+        if ( hazardTreeData.WorkOrderID != nil && hazardTreeData.WorkOrderID == 0 && GetSaveUserDetailsFromUserDefault.getDetials()!.Type <= 2 ) {
+            btnGoToWorkOrderFlow.isHidden = false
+            btnGoToWorkOrderFlow.addTarget(self, action: #selector(goToWorkOrderFlow(_:)), for: .touchUpInside)
+        } else {
+            btnGoToWorkOrderFlow.isHidden = true
+        }
+        
+        
     }
     
     //Mark:- setting scrollview content size
@@ -102,6 +119,41 @@ class HazardTreeDetailVC: UIViewController, UICollectionViewDelegate,UICollectio
         vc.hazardTreeData = self.hazardTreeData
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    //Mark:- text field delegate
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        
+        
+        guard let txtObj = textField as? PopUpPickers else {return true}
+        
+        let vx = CustomTable()
+        vx.frame = CGRect(x: 0, y: 0, width: (self.view.frame.width), height: (self.view.frame.height))
+        vx.contentView.frame = vx.frame
+        vx.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.6)
+        self.view.addSubview(vx)
+        vx.navigationView.navigationTitle = txtObj.placeholder!
+        
+        vx.alpha = 0.0
+        vx.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        //view animation
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {
+            vx.alpha = 1.0;
+            vx.transform = CGAffineTransform.identity
+        }, completion: { _ in
+            vx.alpha = 1.0
+            vx.transform = CGAffineTransform.identity
+        })
+        
+        self.view.bringSubviewToFront(vx)
+        vx.selectedTextBoxObj = txtObj
+        vx.navigationView.showRightButton = false
+        vx.selectedId = txtObj.selectedId
+        vx.EntityName = txtObj.EntityName
+        vx.customTableDelegate = self
+        return false
+    }
+    
+    func valueSelected(obj: PopUpPickers) {}
     
     //Mark:- call user api
     private func callApiUser(){
@@ -157,9 +209,12 @@ class HazardTreeDetailVC: UIViewController, UICollectionViewDelegate,UICollectio
             lblWorkOrderId.attributedText = myMutableString
             
         }
+        values.append(hazardTreeData.Title ?? "" )
         values.append((mcd.getRecordById(entityName:.Status, id: hazardTreeData!.Status)["name"] as? String)!)
         values.append((mcd.getRecordById(entityName:.FeederList, id: hazardTreeData!.FeederId)["name"] as? String)!)
        // values.append((mcd.getRecordById(entityName: .Poles, id: hazardTreeData!.PoleId!)["name"] as? String!)!!)
+        let locationInRow = hazardTreeData.InSideRow == true ? "Inside RoW" : "Outside RoW"
+        values.append(locationInRow)
         values.append("\(hazardTreeData!.DistLine)")
         values.append((mcd.getRecordById(entityName:.TreeSpecies, id: hazardTreeData!.TreeSpeciesId)["name"] as? String)!)
         values.append((mcd.getRecordById(entityName:.Prescription, id: hazardTreeData!.Prescription)["name"] as? String)!)
@@ -181,6 +236,8 @@ class HazardTreeDetailVC: UIViewController, UICollectionViewDelegate,UICollectio
         
         values.append(ocAssigned)
         values.append(hazardTreeData!.Comments!)
+        
+        txtStatus.setText(EntityName: .Status, recId: hazardTreeData.Status)
         
         let temp = hazardTreeData.HzTreeImages
         
@@ -210,7 +267,23 @@ class HazardTreeDetailVC: UIViewController, UICollectionViewDelegate,UICollectio
     
     //Mark:- pop to vc
     @objc func back(_ sender: UIButton){
-        self.navigationController?.popViewController(animated: true)
+        if ( !isFromNotification ) {
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            if self.navigationController?.viewControllers.count == 0 {
+                let storyBoard = UIStoryboard.init(name: "Home", bundle: nil)
+                let vc = storyBoard.instantiateInitialViewController()
+                let window = UIWindow()
+                window.rootViewController = vc
+                window.makeKeyAndVisible()
+                
+                present(vc!, animated: true, completion: {() in
+                    //self.dismiss(animated: true, completion: nil)
+                })
+            } else {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
     
     //Mark:- creating dotted view and setting data into it, also calculating totaldisplacement and arranging collection and remaning views here too
@@ -462,16 +535,14 @@ class HazardTreeDetailVC: UIViewController, UICollectionViewDelegate,UICollectio
         let images = hazardTreeData.HzTreeImages
         let imageName = images![index].imageFullPathOriginal
         let url = URL(string:imageName!)
-        setImageWithTitle.activity.startAnimating()
-        setImageWithTitle.loadingContainer.isHidden = false
+        self.setImageWithTitle.contentView.showLoadOtherFormat(title: "Please wait...", desc: "Loading high resolution image.")
         self.setImageWithTitle.img.sd_setImage(with: url,  completed: {
             (image, error, cacheType, url) in
-            self.setImageWithTitle.loadingContainer.isHidden = true
-            self.setImageWithTitle.activity.stopAnimating()
-            self.setImageWithTitle.activity.isHidden = true
+            self.setImageWithTitle.contentView.hideLoadOtherView()
             })
         self.view.addSubview(self.setImageWithTitle.contentView)
         self.view.bringSubviewToFront(self.setImageWithTitle.contentView)
+        
         self.setImageWithTitle.txtTitle.text = cell.lblTitle.text == "" ? " " : cell.lblTitle.text
         self.setImageWithTitle.btnSend.isEnabled = false
         self.setImageWithTitle.btnSend.isHidden = true
@@ -484,7 +555,7 @@ class HazardTreeDetailVC: UIViewController, UICollectionViewDelegate,UICollectio
         let apiHandler = ApiHandler()
         let userData = GetSaveUserDetailsFromUserDefault.getDetials()
         let userId = userData!.UserId
-        let status = txtStatus.getData(obj: txtStatus) as? Int
+        let status = txtStatus.selectedId
         let treeId = hazardTreeData.HazardTreeID
         
         var parameters : [String:AnyObject] = [String:AnyObject]()
@@ -541,5 +612,21 @@ class HazardTreeDetailVC: UIViewController, UICollectionViewDelegate,UICollectio
         })
     }
     
+    //Mark:- go to work order flow
+    @objc func goToWorkOrderFlow(_ sender : UIButton) {
+        performSegue(withIdentifier: "goToWorkFlow", sender: self)
+    }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! Step1ViewController
+        vc.preSelectedId = hazardTreeData.HazardTreeID
+        let data = mcd.getRecordById(entityName: .Prescription, id: hazardTreeData.Prescription)
+        
+        if ( data["type"] as! String == filterTypePrescription.SkyLine.rawValue ) {
+            vc.workType = WorkType.SKYLINE.rawValue
+        } else {
+            vc.workType = WorkType.TREEREMOVAL.rawValue
+        }
+
+    }
 }

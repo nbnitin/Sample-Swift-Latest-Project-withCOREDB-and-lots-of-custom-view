@@ -14,13 +14,15 @@ protocol subMenuCellDelegate {
 
 class MenuTableViewCell: UITableViewCell,UITableViewDataSource,UITableViewDelegate {
     
-    var dataArr:[String] = ["HOME","Hazard Tree","Cycle Trim","User Guide","About Us","Log Out"] //"Work Order"
-    var imageArr:[String] = ["home","download","trim","guide","icon","logout-1"] //"work_order",
+    var dataArr:[String] = ["HOME","Hazard Tree","Cycle Trim","Hot Spot","Work Order","User Guide","About Us","Log Out"] //"Work Order"
+    var imageArr:[String] = ["home","download","trim","trim","work_order","guide","icon","logout-1"] //"work_order",
     var subMenuTable:UITableView?
     var delegate : subMenuCellDelegate!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style , reuseIdentifier: reuseIdentifier)
+        
+        
         
         setUpTable()
     }
@@ -45,6 +47,7 @@ class MenuTableViewCell: UITableViewCell,UITableViewDataSource,UITableViewDelega
         subMenuTable?.separatorColor = UIColor.white
         subMenuTable?.backgroundColor = UIColor.white
         subMenuTable?.tableFooterView = UIView()
+        subMenuTable?.reloadData()
         self.addSubview(subMenuTable!)
     }
     
@@ -59,6 +62,8 @@ class MenuTableViewCell: UITableViewCell,UITableViewDataSource,UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+       
+        
         return dataArr.count
     }
     

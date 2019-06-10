@@ -10,15 +10,10 @@ import Foundation
 
 class WorkOrderModel:Decodable{
     let WorkOrderId: Int
-    let FeederId: Int
-    let GeoLat: Double
-    let GeoLong: Double
+    let Title : String?
+    let DueDate : String?
     let Status: Int
-    let AssignedTo: Int
-    let SegamentMiles: Double
-    let LocalOffice : String
-    let Substation : String
-    let OCID : Int
+    let AssignedTo: Int?
     let Comments : String
     let CreatedBy : Int
     let ModifiedBy : Int?
@@ -27,21 +22,19 @@ class WorkOrderModel:Decodable{
     let CommitOn : String?
     let WorkOrderAssignTo : String?
     let WorkOrderCreatedBy : String?
-    let HazardTreeWithImagesList : [HazardTreeModel]?
-    let RowWithTreeList : [CycleTrimModel]?
+    let HazardTreeList : [HazardTreeModel]?
+    let RowList : [CycleTrimModel]?
+    let HotSpotList : [HotSpotModel]?
     let AuditList : [AuditList]?
+    let WorkType : Int
+    let AssignedToName : String?
     
-    init(WorkOrderId : Int, FeederId:Int, GeoLat:Double,GeoLong:Double,Status:Int,AssignedTo:Int,SegamentMiles:Double,LocalOffice:String,Substation:String,OCID:Int,Comments:String,CreatedBy:Int,ModifiedAt:String,CommitOn:String,WorkOrderAssignTo:String,WorkOrderCreatedBy:String,HazardTreeWithImagesList:[HazardTreeModel]?,RowWithTreeList:[CycleTrimModel]?,CreatedAt:String,ModifiedBy:Int,AuditList:[AuditList]) {
+    init(WorkOrderId : Int,DueDate: String,Title:String, Status:Int,AssignedTo:Int?,Comments:String,CreatedBy:Int,ModifiedAt:String,CommitOn:String,WorkOrderAssignTo:String,WorkOrderCreatedBy:String,HazardTreeList:[HazardTreeModel]?,RowList:[CycleTrimModel]?,HotSpotList:[HotSpotModel],CreatedAt:String,ModifiedBy:Int,AuditList:[AuditList],WorkType:Int,AssignedToName:String?) {
         self.WorkOrderId = WorkOrderId
-        self.FeederId = FeederId
-        self.GeoLat = GeoLat
-        self.GeoLong = GeoLong
+        self.DueDate = DueDate
         self.Status = Status
         self.AssignedTo = AssignedTo
-        self.SegamentMiles = SegamentMiles
-        self.LocalOffice = LocalOffice
-        self.Substation = Substation
-        self.OCID = OCID
+        self.Title = Title
         self.Comments = Comments
         self.CreatedAt = CreatedAt
         self.CreatedBy = CreatedBy
@@ -50,8 +43,11 @@ class WorkOrderModel:Decodable{
         self.CommitOn = CommitOn
         self.WorkOrderAssignTo = WorkOrderAssignTo
         self.WorkOrderCreatedBy = WorkOrderCreatedBy
-        self.HazardTreeWithImagesList = HazardTreeWithImagesList
-        self.RowWithTreeList = RowWithTreeList
+        self.HazardTreeList = HazardTreeList
+        self.RowList = RowList
         self.AuditList = AuditList
+        self.WorkType = WorkType
+        self.HotSpotList = HotSpotList
+        self.AssignedToName = AssignedToName
     }
 }

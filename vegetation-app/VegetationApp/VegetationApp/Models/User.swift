@@ -16,8 +16,9 @@ class User:NSObject,Decodable,NSCoding{
     let Image : String
     let Status : Int
     let Region : String
+    var IsDefaultPassword : Bool
     
-    init(UserId: Int, FirstName: String, Type: Int, Email: String, Image:String, Status:Int,Region:String){
+    init(UserId: Int, FirstName: String, Type: Int, Email: String, Image:String, Status:Int,Region:String,IsDefaultPassword:Bool){
         self.UserId = UserId
         self.FirstName = FirstName
         self.Type = Type
@@ -25,6 +26,7 @@ class User:NSObject,Decodable,NSCoding{
         self.Image = Image
         self.Status = Status
         self.Region = Region
+        self.IsDefaultPassword = IsDefaultPassword
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,7 +39,7 @@ class User:NSObject,Decodable,NSCoding{
         self.Image = (aDecoder.decodeObject(forKey: "Image") as? String)!
         self.Status = aDecoder.decodeInteger(forKey: "Status")
         self.Region = aDecoder.decodeObject(forKey: ("Region" as? String)!) as! String
-
+        self.IsDefaultPassword = aDecoder.decodeBool(forKey: "IsDefaultPassword")
     }
     
     
@@ -49,5 +51,6 @@ class User:NSObject,Decodable,NSCoding{
         aCoder.encode(self.Image, forKey: "Image")
         aCoder.encode(self.Status, forKey: "Status")
         aCoder.encode(self.Region, forKey: "Region")
+        aCoder.encode(self.IsDefaultPassword, forKey: "IsDefaultPassword")
     }
 }

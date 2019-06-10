@@ -360,22 +360,12 @@ class Step3CycleTrimViewController : UIViewController,searchCurrentLocation,MapL
         
         var parameters :[String:Any] = [:]
         parameters["WorkOrderId"] = workOrder.WorkOrderId
-        parameters["FeederId"] = workOrder.FeederId
-
-        parameters["GeoLat"] = workOrder.GeoLat
-
-        parameters["GeoLong"] = workOrder.GeoLong
+       
 
         parameters["Status"] = workOrder.Status
         parameters["AssignedTo"] = workOrder.AssignedTo
 
-        parameters["SegamentMiles"] = workOrder.SegamentMiles
-
-        parameters["LocalOffice"] = workOrder.LocalOffice
-
-        parameters["Substation"] = workOrder.Substation
-
-        parameters["OCID"] = workOrder.OCID
+        
         parameters["Comments"] = workOrder.Comments
         parameters["CreatedBy"] = workOrder.CreatedBy
         parameters["ROWIDs"] = (unAssignedSelected.map{String($0)}).joined(separator: ",")

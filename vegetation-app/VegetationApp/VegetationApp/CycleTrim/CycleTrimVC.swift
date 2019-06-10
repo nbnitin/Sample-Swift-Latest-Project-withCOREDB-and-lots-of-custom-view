@@ -10,10 +10,11 @@ import UIKit
 import CoreData
 import SDWebImage
 
+
 class CycleTrimVC: UIViewController,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIAdaptivePresentationControllerDelegate,UIPopoverPresentationControllerDelegate,SortFilterDelegate{
     
     //variables
-    var cellHeight : CGFloat = 173
+    var cellHeight : CGFloat = 176
     var cellWidth : CGFloat = 0.0
     var data : [CycleTrimModel] = []
     var mcd : MasterDataController!
@@ -123,6 +124,7 @@ class CycleTrimVC: UIViewController,UICollectionViewDataSource,UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CycleTrimCell
+        cell.containerView.lblTitle.text = data[indexPath.row].title
         cell.containerView.lblRecId.text = "\(data[indexPath.row].rowId)"
         cell.containerView.lblClearance.text = "\(data[indexPath.row].clearance)"
         cell.containerView.lblFeeder.text = mcd.getRecordById(entityName: .FeederList, id: data[indexPath.row].feederId)["name"] as? String
@@ -268,7 +270,7 @@ class CycleTrimVC: UIViewController,UICollectionViewDataSource,UICollectionViewD
         //let x = getCoreData()
         
         let dict = ["id":jsonString.rowId,"jsonData":jsonString] as [String : Any]
-        let managedContext = MasterDataController.shared.managedContext!
+//        let managedContext = MasterDataController.shared.managedContext!
         let mcd = MasterDataController()
         mcd.saveIntoCoreData(entityName: "CycleTrimEntity", dict: dict)
 

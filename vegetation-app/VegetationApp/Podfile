@@ -10,6 +10,12 @@ pod 'Alamofire', '~> 5.0.0-beta.3'
 pod 'IQKeyboardManagerSwift'
 pod 'SDWebImage'
 pod 'CropViewController'
+pod 'Firebase/Core'
+pod 'Fabric', '~> 1.10.1'
+pod 'Crashlytics', '~> 3.13.1'
+pod 'Firebase/Messaging'
+
+
 
 
 end

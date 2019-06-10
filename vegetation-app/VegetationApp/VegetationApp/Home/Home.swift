@@ -20,9 +20,11 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
     var cycleTrim : CycleTrimModel!
     var hazardTree : HazardTreeModel!
     var workOrder : WorkOrderModel!
+    var hotSpot : HotSpotModel!
     var cycleTrimIncomplete = 0
     var hazardTreeIncomplete = 0
     var workOrderIncomplete = 0
+    var hotSpotInComplete = 0
     var mcd = MasterDataController()
     var data : Int = 0
     //outlets
@@ -37,9 +39,11 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
         super.viewDidLoad()
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         setupMenuGestureRecognizer()
-        isExpanded = Array(repeating: false, count: 3)
+        isExpanded = Array(repeating: false, count: 4)
         
         callApi()
+        
+        
 
         navigationBar.btnMenu.addTarget(self.revealViewController(), action: #selector((SWRevealViewController.revealToggle) as (SWRevealViewController) -> (Void) -> Void), for: .touchUpInside)
        // navigationBar.lblTitle.text = "Dashboard"
@@ -49,34 +53,18 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
     
     override func viewDidAppear(_ animated: Bool) {
         print("freezed")
-        hideShowLoadingContainer()
+        self.view.showLoadOtherFormat(title: "Please wait...", desc: "We are populating feeder and pole data.")
         let mdc = MasterDataController()
         mdc.callApi(completionHandler:{response,error in
             print("released")
             //print( mdc.getData(entityName: "AccessToTree"))
              DispatchQueue.main.async {
-                self.hideShowLoadingContainer()
+                self.view.hideLoadOtherView()
             }
         })
     }
     
-    //Mark:- hide show loading container
-    func hideShowLoadingContainer(){
-       
-        if ( loadingViewContainer.isHidden ) {
-            loadingViewContainer.isHidden = false
-            loadingSubView.isHidden = false
-            activity.startAnimating()
-            activity.isHidden = false
-            self.view.bringSubviewToFront(loadingViewContainer)
-        } else {
-            loadingViewContainer.isHidden = true
-            loadingSubView.isHidden = true
-            activity.stopAnimating()
-            activity.isHidden = true
-            self.view.sendSubviewToBack(loadingViewContainer)
-        }
-    }
+    
     
     //Mark:- collectionview
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -96,6 +84,7 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
             cell.contentView.backgroundColor = UIColor.init(hexString: "#5773FF")
             cell.lowerContainerView.backgroundColor = UIColor.init(hexString: "#5773FF")
             cell.lblCount.text = "\(cycleTrimIncomplete)"
+            cell.lblTitle.text = "Cycle Trim"
             
             if (cycleTrim != nil ) {
                 cell.lblFeadrer.text = mcd.getRecordById(entityName: .FeederList, id: cycleTrim.feederId)["name"] as? String
@@ -112,7 +101,8 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
             cell.contentView.backgroundColor = UIColor.init(hexString: "#3497FD")
             cell.lowerContainerView.backgroundColor = UIColor.init(hexString: "#3497FD")
             cell.lblCount.text = "\(hazardTreeIncomplete)"
-           
+            cell.lblTitle.text = "Hazard Tree"
+            
             if ( hazardTree != nil ) {
                 cell.lblFeadrer.text = mcd.getRecordById(entityName: .FeederList, id: hazardTree.FeederId)["name"] as? String
                 cell.lblRiskLevel.text = mcd.getRecordById(entityName: .Status, id: hazardTree.Status)["name"] as? String
@@ -123,35 +113,42 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
                 
             }
             
-        } else {
-            cell.imgCell.image = UIImage(named: "Group-112")
-            cell.contentView.backgroundColor = UIColor.init(hexString: "#FC3459")
-            cell.lowerContainerView.backgroundColor = UIColor.init(hexString: "#FC3459")
-            cell.lblCount.text = "\(workOrderIncomplete)"
-           
-            if (workOrder != nil) {
-                cell.lblFeadrer.text = mcd.getRecordById(entityName: .FeederList, id: workOrder.FeederId)["name"] as? String
-                cell.lblRiskLevel.text = mcd.getRecordById(entityName: .Status, id: workOrder.Status)["name"] as? String
+        } else if (indexPath.row == 2){
+            cell.imgCell.image = UIImage(named: "Group-113")
+            cell.contentView.backgroundColor = UIColor.init(hexString: "#1BCA9B")
+            cell.lowerContainerView.backgroundColor = UIColor.init(hexString: "#1BCA9B")
+            cell.lblCount.text = "\(hotSpotInComplete)"
+             cell.lblTitle.text = "Hot Spot"
+            
+            if ( hotSpot != nil) {
+                cell.lblFeadrer.text = mcd.getRecordById(entityName: .FeederList, id: hotSpot.FeederId)["name"] as? String
+                cell.lblRiskLevel.text = mcd.getRecordById(entityName: .Status, id: hotSpot.Status)["name"] as? String
                 let tap = UITapGestureRecognizer(target: self, action: #selector(goToDetailView(_:)))
                 cell.lowerContainerView.addGestureRecognizer(tap)
                 cell.lowerContainerView.tag = 3
                 cell.lowerContainerView.isUserInteractionEnabled = true
             }
+        } else {
+            cell.imgCell.image = UIImage(named: "Group-112")
+            cell.contentView.backgroundColor = UIColor.init(hexString: "#FC3459")
+            cell.lowerContainerView.backgroundColor = UIColor.init(hexString: "#FC3459")
+            cell.lblCount.text = "\(workOrderIncomplete)"
+            cell.lblTitle.text = "Work Order"
+            
+            if (workOrder != nil) {
+                cell.lblRiskLevel.text = mcd.getRecordById(entityName: .Status, id: workOrder.Status)["name"] as? String
+                let tap = UITapGestureRecognizer(target: self, action: #selector(goToDetailView(_:)))
+                cell.lowerContainerView.addGestureRecognizer(tap)
+                cell.lowerContainerView.tag = 4
+                cell.lowerContainerView.isUserInteractionEnabled = true
+            }
            
         }
         
-       // cell.lblCount.text = "91"
-        if(indexPath.row == 0){
-            cell.lblTitle.text = "Cycle Trim"
-        } else if(indexPath.row == 1){
-            cell.lblTitle.text = "Hazard Tree"
-        } else {
-            cell.lblTitle.text = "Work Order"
-        }
+       
         cell.indexPath = indexPath
         cell.delegate = self
-       // cell.lblFeadrer.text = "999494"
-       // cell.lblRiskLevel.text = "30"
+      
         
         if(isExpanded[indexPath.row]){
             cell.lowerContainerView.isHidden = false
@@ -193,6 +190,11 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
             let vc = storyboard.instantiateViewController(withIdentifier: "hazardTreeDetailVC") as! HazardTreeDetailVC
             vc.hazardTreeData = hazardTree
             self.navigationController?.pushViewController(vc, animated: true)
+        } else if ( sender.view?.tag == 3 ) {
+            let storyboard = UIStoryboard(name: "HotSpot", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "hotSpotDetailVC") as! HotSpotDetailVC
+            vc.hotSpotData = hotSpot
+            self.navigationController?.pushViewController(vc, animated: true)
         } else {
             let storyboard = UIStoryboard(name: "WorkOrder", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "workOrderDetailVC") as! WorkOrderDetailVC
@@ -224,7 +226,8 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
                     self.hazardTreeIncomplete = data["HTreeIncomplete"] as! Int
                     self.cycleTrimIncomplete = data["RowIncomplete"] as! Int
                     self.workOrderIncomplete = data["WorkOrderIncomplete"] as! Int
-                    
+                    self.hotSpotInComplete = data["HotSpotIncomplete"] as! Int
+
                 
                     if (JSONSerialization.isValidJSONObject(data["RowRecentData"])) {
                         let jsonDataOfCycleTrim = try? JSONSerialization.data(withJSONObject: data["RowRecentData"], options: [])
@@ -238,7 +241,11 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
                         let jsonDataOfWorkOrder = try? JSONSerialization.data(withJSONObject: data["WorkOrderRecentData"], options: [])
                         self.workOrder = try JSONDecoder().decode(WorkOrderModel.self, from: jsonDataOfWorkOrder!)
                     }
-                    self.data = 2
+                    if (JSONSerialization.isValidJSONObject(data["HotRecentData"])) {
+                        let jsonDataOfWorkOrder = try? JSONSerialization.data(withJSONObject: data["HotRecentData"], options: [])
+                        self.hotSpot = try JSONDecoder().decode(HotSpotModel.self, from: jsonDataOfWorkOrder!)
+                    }
+                    self.data = 4
                     self.dashboardCollectionView.reloadData()
                 }
                 catch let jsonErr{

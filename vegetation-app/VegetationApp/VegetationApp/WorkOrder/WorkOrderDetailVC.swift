@@ -8,14 +8,14 @@
 
 import UIKit
 
-class WorkOrderDetailVC: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+class WorkOrderDetailVC: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,EditWorkOrderProtocol {
+    
     
     //variables
-    var details = ["Work Order","Feeder No.","Assigned To","No. of Hazard Tree","No. of Cycle Trim","Status"]
+    var details = ["Title","Work Order","Assigned To","Due Date","No. of Hazard Tree","No. of Hot Spot","Status","Comment"]
     var values = ["12345","Inside","03ft","Oak (60%), Mapple (40%)","Skyline","Approved"]
     
     var history = ["Cycle trim created by Daniel in 03 March,2019 at 08:00pm","Reviewed by Paul on 04 March,2019 at 08:30pm","Assigned to mike on 05 March,2019 at 08:00pm","Mark as completed by Mike on 06 March, 2019 at 08:00pm"]
-    var assignedToName = ""
     
     let height = 80
     let xAxis = 20
@@ -28,8 +28,11 @@ class WorkOrderDetailVC: UIViewController, UICollectionViewDelegate,UICollection
     var cellWidth : CGFloat = 0.0
     var hazardTreeData : [HazardTreeModel]! = []
     var cycleTrimData : [CycleTrimModel]! = []
+    var hotSpotData : [HotSpotModel]! = []
+    var workOrderID : Int!
     let leftInset = 10
     let rightInset = 16
+    var isFromNotification = false
     
     //outlets
     @IBOutlet weak var lblHeading: UILabel!
@@ -55,22 +58,18 @@ class WorkOrderDetailVC: UIViewController, UICollectionViewDelegate,UICollection
         navigationBar.btnMenu.setImage(image, for: .normal)
         navigationBar.btnMenu.addTarget(self, action: #selector(back(_:)), for: .touchUpInside)
         
+        navigationBar.btnRight.setTitle("Edit", for: .normal)
+        navigationBar.btnRight.addTarget(self, action: #selector(editWorkOrder(_:)), for: .touchUpInside)
         
-        setupData()
-        setupInitialView()
-        setupHistoryView()
-        cellWidth = self.view.bounds.width
+        callApiUser()
 
+        if ( isFromNotification ) {
+           showNotificationAlert()
+        }
+       
     }
     
-    //Mark:- setting scrollview content size
-    override func viewDidAppear(_ animated: Bool) {
-        
-
-        
-        
-        
-    }
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -83,34 +82,35 @@ class WorkOrderDetailVC: UIViewController, UICollectionViewDelegate,UICollection
     private func setupData(){
         values.removeAll()
         
-       
+        values.append(workOrderData!.Title ?? "")
         values.append("\(workOrderData!.WorkOrderId)")
-        values.append((mcd.getRecordById(entityName:.FeederList, id: workOrderData!.FeederId)["name"] as? String)!)
-        values.append(assignedToName ?? "N/A")
+        values.append(workOrderData.AssignedToName ?? "")
+        values.append(DateFormatters.shared.dateFormatter2.string(from: DateFormatters.shared.dateFormatterNormal.date(from: workOrderData.DueDate!)!))
         
-        if ( workOrderData.HazardTreeWithImagesList!.count > 0 ) {
-            values.append("\(workOrderData.HazardTreeWithImagesList?.count ?? 0)")
+        if ( workOrderData.HazardTreeList != nil && workOrderData.HazardTreeList!.count > 0 ) {
+            values.append("\(workOrderData.HazardTreeList?.count ?? 0)")
         } else  {
             details.remove(at: details.index(of: "No. of Hazard Tree")!)
         }
-        if ( workOrderData.RowWithTreeList!.count > 0 ) {
-            values.append("\(workOrderData.RowWithTreeList?.count ?? 0)")
+        if ( workOrderData.HotSpotList!.count > 0 ) {
+            values.append("\(workOrderData.HotSpotList?.count ?? 0)")
         } else {
-            details.remove(at: details.index(of: "No. of Cycle Trim")!)
+            details.remove(at: details.index(of: "No. of Hot Spot")!)
         }
         
         values.append((mcd.getRecordById(entityName: .Status, id: workOrderData.Status)["name"] as? String)!)
+        values.append(workOrderData.Comments)
         
-        if ( workOrderData.HazardTreeWithImagesList!.count > 0 ) {
-            hazardTreeData = workOrderData.HazardTreeWithImagesList
+        if ( workOrderData.HazardTreeList != nil && workOrderData.HazardTreeList!.count > 0 ) {
+            hazardTreeData = workOrderData.HazardTreeList
             lblHeading.text = "Hazard Tree"
-            dataCollHeightConstraint.constant = cellHeight * CGFloat(workOrderData.HazardTreeWithImagesList!.count) + 20
+            dataCollHeightConstraint.constant = cellHeight * CGFloat(workOrderData.HazardTreeList!.count) + 70
             self.dataCollView.reloadData()
-        } else if ( workOrderData.RowWithTreeList!.count > 0 ) {
-            cycleTrimData = workOrderData.RowWithTreeList
-            lblHeading.text = "Cycle Trim"
+        } else if ( workOrderData.HotSpotList!.count > 0 ) {
+            hotSpotData = workOrderData.HotSpotList
+            lblHeading.text = "Hot Spot"
             //cellHeight = 158
-            dataCollHeightConstraint.constant = cellHeight * CGFloat(workOrderData.RowWithTreeList!.count) + 20 
+            dataCollHeightConstraint.constant = cellHeight * CGFloat(workOrderData.HotSpotList!.count) + 70
             self.dataCollView.reloadData()
         }
         
@@ -129,12 +129,32 @@ class WorkOrderDetailVC: UIViewController, UICollectionViewDelegate,UICollection
             historyContainerViewHeightConstraint.constant = 0
             lblHistoryTitle.isHidden = true
         }
+        cellWidth = self.view.bounds.width
+
+        setupInitialView()
+        setupHistoryView()
 
     }
     
     //Mark:- pop to vc
     @objc func back(_ sender: UIButton){
-        self.navigationController?.popViewController(animated: true)
+        if ( !isFromNotification ) {
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            if self.navigationController?.viewControllers.count == 0 {
+                let storyBoard = UIStoryboard.init(name: "Home", bundle: nil)
+                let vc = storyBoard.instantiateInitialViewController()
+                let window = UIWindow()
+                window.rootViewController = vc
+                window.makeKeyAndVisible()
+                
+                present(vc!, animated: true, completion: {() in
+                    //self.dismiss(animated: true, completion: nil)
+                })
+            } else {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
     
     //Mark:- creating dotted view and setting data into it, also calculating totaldisplacement and arranging collection and remaning views here too
@@ -165,10 +185,11 @@ class WorkOrderDetailVC: UIViewController, UICollectionViewDelegate,UICollection
             }
             cycleView.lblTitle.text = details[i]
             cycleView.lblValue.text = values[i]
+            
             addLine(xAxis: xAxis, y0Axis: CGFloat(y0Axis), y1Axis: CGFloat(y1Axis))
         }
         
-        if ( workOrderData.RowWithTreeList?.count == 0 && workOrderData.HazardTreeWithImagesList!.count == 0 ) {
+        if ( ( workOrderData.HotSpotList != nil && workOrderData.HazardTreeList != nil ) && ( workOrderData.HotSpotList?.count == 0 && workOrderData.HazardTreeList!.count == 0 ) ) {
             lblHeading.isHidden = true
         } else {
             headingLabelTopConstraint.constant = CGFloat(yAxis)
@@ -280,10 +301,10 @@ class WorkOrderDetailVC: UIViewController, UICollectionViewDelegate,UICollection
             return hazardTreeData.count
         }
         
-        if ( cycleTrimData.count > 0 ) {
+        if ( hotSpotData.count > 0 ) {
            // dataCollHeightConstraint.constant = CGFloat((cycleTrimData.count * Int((cellHeight) + 30))) //30 is margin extra space
         }
-        return cycleTrimData.count
+        return hotSpotData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -311,13 +332,15 @@ class WorkOrderDetailVC: UIViewController, UICollectionViewDelegate,UICollection
             return cell
         }
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cycleCell", for: indexPath) as! CycleTrimCell
-        cell.containerView.lblRecId.text = "\(cycleTrimData[indexPath.row].rowId)"
-        cell.containerView.lblClearance.text = "\(cycleTrimData[indexPath.row].clearance)"
-        cell.containerView.lblFeeder.text = mcd.getRecordById(entityName: .FeederList, id: cycleTrimData[indexPath.row].feederId)["name"] as? String
-        cell.containerView.lblStatus.text = cycleTrimData[indexPath.row].statusName
-        cell.containerView.lblNetwork.text = cycleTrimData[indexPath.row].localOffice
-        cell.containerView.lblTreeSpecies.text = "N/A"
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "hotSpotCell", for: indexPath) as! HotSpotCell
+        cell.containerView.imgView.isHidden = true
+        cell.containerView.lblTitle.text = hotSpotData[indexPath.row].Title
+        cell.containerView.lblRecId.text = "\(hotSpotData[indexPath.row].HotSpotID)"
+        cell.containerView.lblCustomerCount.text = "\(hotSpotData[indexPath.row].FeederCustomerCount)"
+        cell.containerView.lblAccessToTree.text = mcd.getRecordById(entityName: .AccessToTree, id: hotSpotData[indexPath.row].AccessToTree)["name"] as? String
+        cell.containerView.lblStatus.text = mcd.getRecordById(entityName: .Status, id: hotSpotData[indexPath.row].Status)["name"] as? String
+        
+        cell.containerView.lblTreeSpecies.text = hotSpotData[indexPath.row].SpeciesName
         cell.containerView.frame.size.height = cellHeight
         cell.containerView.frame.size.width = cellWidth - CGFloat((leftInset+rightInset))
         cell.dropShadow(color: .black, opacity: 0.5, offSet: CGSize(width: -0.6, height: 0.1), radius: 3, scale: true)
@@ -351,16 +374,33 @@ class WorkOrderDetailVC: UIViewController, UICollectionViewDelegate,UICollection
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if let _ = collectionView.cellForItem(at: indexPath) as? CycleTrimCell{
-            let storyboard = UIStoryboard(name: "CycleTrim", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "cycleTrimDetailVC") as! CycleTrimDetailVC
-            vc.cycleTrimData = self.cycleTrimData[indexPath.row]
+        if let _ = collectionView.cellForItem(at: indexPath) as? HotSpotCell {
+            let storyboard = UIStoryboard(name: "HotSpot", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "hotSpotDetailVC") as! HotSpotDetailVC
+            vc.hotSpotData = self.hotSpotData[indexPath.row]
             self.navigationController?.pushViewController(vc, animated: true)
         } else {
             let storyboard = UIStoryboard(name: "HazardTree", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "hazardTreeDetailVC") as! HazardTreeDetailVC
             vc.hazardTreeData = self.hazardTreeData[indexPath.row]
             self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    @objc func editWorkOrder(_ sender:UIButton){
+        performSegue(withIdentifier: "editWorkOrder", sender: self)
+    }
+    
+    func editingDone(workOrder: WorkOrderModel) {
+        self.workOrderData = workOrder
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+       
+        if ( segue.identifier == "editWorkOrder" ) {
+            let vc = segue.destination as! EditWorkOrderViewController
+            vc.delegate = self
+            vc.workOrderData = workOrderData
         }
     }
     
@@ -392,8 +432,8 @@ class WorkOrderDetailVC: UIViewController, UICollectionViewDelegate,UICollection
     }
     
     @objc func navigateToCycle(_ sender: UITapGestureRecognizer) {
-        let lat = cycleTrimData[sender.view!.tag].geoLat
-        let long = cycleTrimData[sender.view!.tag].geoLong
+        let lat = hotSpotData[sender.view!.tag].GeoLat
+        let long = hotSpotData[sender.view!.tag].GeoLong
         
         let storyBoard = UIStoryboard(name:"Map",bundle: nil)
         let vc = storyBoard.instantiateViewController(withIdentifier: "locateVC") as! Locate
@@ -414,7 +454,116 @@ class WorkOrderDetailVC: UIViewController, UICollectionViewDelegate,UICollection
 //        }
         
     }
+    private func callApiUser(){
+        
+        let apiHandler = ApiHandler()
+        let userData = GetSaveUserDetailsFromUserDefault.getDetials()
+        let userId = userData!.UserId
+        let url = apiUrl.getUsersList+"\(userId)"
+        apiHandler.sendGetRequest(url: url,  completionHandler: { response,error in
+            print(response)
+            
+            if((response["Status"] as! Int) != 0){
+                let data = response["KeyValueList"] as! [[String:AnyObject]]
+                
+                for tempData in data{
+                    if (tempData["UserId"] as! Int == self.workOrderData.AssignedTo) {
+                        //self.assignedToName = tempData["FirstName"] as! String
+                    }
+                }
+                self.setupData()
+                
+            } else {
+                // self.showAlert(str: response["StatusMessage"]! as! String)
+            }
+            
+        })
+    }
     
+    //Mark:- get work order details when come from push response
+    //Mark:- call api
+    private func getWorkOrderDetails(){
+        let apiHandler = ApiHandler()
+        let url = apiUrl.getWorkOrderSearch
+       
+        var parameter : [String:String] = [:]
+        parameter["WorkOrderID"] = "\(self.workOrderID!)"
+         parameter["FeederID"] = "0"
+         parameter["AssignedID"] = "0"
+          parameter["Status"] = "0"
+          parameter["CreateDate"] = "0"
+          parameter["OrderBy"] = "0"
+          parameter["OrderBYDirection"] = "0"
+           parameter["PageNo"] = "0"
+           parameter["PageSize"] = "0"
+        
+        apiHandler.sendPostRequestTypeSecond(url: url,parameters: parameter  ,completionHandler: { response,error in
+            print(response)
+            self.view.hideLoad()
+            
+            if ( error != nil  ) {
+                self.showAlert(str: (error?.localizedDescription)!)
+                return
+            }
+            
+            if( (response["Status"] as! Int) != 0 ) {
+                do{
+                    let data = response["KeyValueList"] as! [[String:AnyObject]]
+                    
+                   
+                        let jsonData = try? JSONSerialization.data(withJSONObject: data[0], options: [])
+                        self.workOrderData = try JSONDecoder().decode(WorkOrderModel.self, from: jsonData!)
+                    
+                        self.callApiUser()
+                        self.showNotificationAlert()
+                } catch{
+                    print("json error: \(error)")
+                }
+            } else {
+                self.showAlert(str: response["StatusMessage"]! as! String)
+            }
+            
+        })
+    }
+    
+    private func showNotificationAlert(){
+        let alert = UIAlertController(title: "Confirm?", message: "You have new order assigned", preferredStyle: .actionSheet)
+        let acceptAction = UIAlertAction(title: "Accept", style: .default, handler:{ (UIAlertAction) in
+            self.view.showLoad()
+            
+            NotificationHandler.shared.updateWorkOrder(status:2,workOrderId : self.workOrderID,assignTo:self.workOrderData.AssignedTo!,completionHandler:{(response,error) in
+                self.view.hideLoad()
+                if ( error != nil ) {
+                    self.showAlert(str: error!.localizedDescription)
+                    return
+                }
+                
+                self.showAlert(str: response["StatusMessage"] as! String)
+
+            })
+        })
+        let rejectAction = UIAlertAction(title: "Reject", style: .default, handler:{ (UIAlertAction) in
+                self.view.showLoad()
+            NotificationHandler.shared.updateWorkOrder(status:-1,workOrderId:self.workOrderID,assignTo:self.workOrderData.AssignedTo!,completionHandler:{(response,error) in
+                self.view.hideLoad()
+               
+                if ( error != nil ) {
+                    self.showAlert(str: error!.localizedDescription)
+                    return
+                }
+                
+                self.showAlert(str: response["StatusMessage"] as! String)
+
+            })
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alert.addAction(acceptAction)
+        alert.addAction(rejectAction)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
     
     
 }

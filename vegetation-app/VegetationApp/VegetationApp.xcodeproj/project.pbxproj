@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06C22EF00FE4CFD6BE45AC8E /* Pods_VegetationApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CE6579908B4B456C03BE9C4 /* Pods_VegetationApp.framework */; };
+		940061662282B39F00ADB94D /* Locate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940061652282B39F00ADB94D /* Locate.swift */; };
 		940348512251DDA00093D9C2 /* StepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 940348502251DDA00093D9C2 /* StepView.xib */; };
 		940348532251DE4B0093D9C2 /* StepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940348522251DE4B0093D9C2 /* StepView.swift */; };
 		940348552251E1160093D9C2 /* WorkOrder.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 940348542251E1160093D9C2 /* WorkOrder.storyboard */; };
@@ -45,6 +47,7 @@
 		94297B59225DF8DB003F1515 /* Step3CycleTrimViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94297B58225DF8DB003F1515 /* Step3CycleTrimViewController.swift */; };
 		94297B5B225DFD17003F1515 /* UnAssignedButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94297B5A225DFD17003F1515 /* UnAssignedButton.xib */; };
 		94297B5D225DFD50003F1515 /* UnAssignedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94297B5C225DFD50003F1515 /* UnAssignedButton.swift */; };
+		9431689122895A6600160C07 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9431689022895A6600160C07 /* ARKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		94355BC92265E7E300B95FD5 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94355BC82265E7E300B95FD5 /* Toast.swift */; };
 		94355BCB2266087500B95FD5 /* FilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94355BCA2266087500B95FD5 /* FilterVC.swift */; };
 		94372378225DB890003EDD8E /* WorkerOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94372377225DB890003EDD8E /* WorkerOrderVC.swift */; };
@@ -57,47 +60,75 @@
 		94377B4B22575BF600C0B711 /* SetImageWithTitle.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94377B4A22575BF600C0B711 /* SetImageWithTitle.xib */; };
 		94377B4D22575CF400C0B711 /* SetImageWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94377B4C22575CF400C0B711 /* SetImageWithTitle.swift */; };
 		94377B4F2257817900C0B711 /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94377B4E2257817900C0B711 /* ImageData.swift */; };
+		944BAD752279A00A00FD7B1B /* ARMeasure.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 944BAD742279A00A00FD7B1B /* ARMeasure.storyboard */; };
+		944BAD7A2279A1B000FD7B1B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944BAD762279A1B000FD7B1B /* Extensions.swift */; };
+		944BAD7B2279A1B000FD7B1B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944BAD772279A1B000FD7B1B /* Utilities.swift */; };
+		944BAD7C2279A1B000FD7B1B /* FocusSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944BAD782279A1B000FD7B1B /* FocusSquare.swift */; };
+		944BAD7D2279A1B000FD7B1B /* NewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944BAD792279A1B000FD7B1B /* NewVC.swift */; };
 		944E67DB2254BB4B00D0D6D5 /* VegetationApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 944E67D92254BB4B00D0D6D5 /* VegetationApp.xcdatamodeld */; };
 		944E67DD2254C05100D0D6D5 /* MasterDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944E67DC2254C05100D0D6D5 /* MasterDataController.swift */; };
 		944EB86D2262150300500B63 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944EB86C2262150300500B63 /* MenuTableViewCell.swift */; };
+		94582723229FFAE1000C3C80 /* EditWorkOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94582722229FFAE1000C3C80 /* EditWorkOrderViewController.swift */; };
+		9458272522A01E6E000C3C80 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9458272422A01E6E000C3C80 /* SectionHeader.swift */; };
 		945CB37922533D5200DC810E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CB37822533D5200DC810E /* User.swift */; };
 		945CB37C22533F0800DC810E /* ApiConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CB37B22533F0800DC810E /* ApiConstant.swift */; };
 		945CB37E2253569200DC810E /* GetSaveUserDetailsFromUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CB37D2253569200DC810E /* GetSaveUserDetailsFromUserDefault.swift */; };
 		94636D34224A4EFC0033B8E6 /* DimLayerSwRevealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94636D33224A4EFC0033B8E6 /* DimLayerSwRevealView.swift */; };
 		94636D37224A4F430033B8E6 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94636D36224A4F430033B8E6 /* Home.swift */; };
+		946523E722A68CC600B85B55 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946523E622A68CC600B85B55 /* NotificationHandler.swift */; };
 		9469FD5B22538CBE0090B898 /* HazardTreeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9469FD5A22538CBE0090B898 /* HazardTreeModel.swift */; };
 		9469FD5D2253A3600090B898 /* CycleTrimModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9469FD5C2253A3600090B898 /* CycleTrimModel.swift */; };
 		946AE959224C963600F8E981 /* CycleAndHazardDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 946AE958224C963600F8E981 /* CycleAndHazardDetailView.xib */; };
 		946AE95B224C96F100F8E981 /* CycleAndHazardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946AE95A224C96F100F8E981 /* CycleAndHazardDetailView.swift */; };
+		9475F83A229E4DDB000BEC20 /* Step2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9475F839229E4DDB000BEC20 /* Step2ViewController.swift */; };
+		9475F83C229E7069000BEC20 /* Step3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9475F83B229E7068000BEC20 /* Step3ViewController.swift */; };
 		947752312249F4F800A2EB14 /* CheckInternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947752302249F4F800A2EB14 /* CheckInternetConnection.swift */; };
 		948DEF0A224A313900406AF8 /* ResetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948DEF09224A313900406AF8 /* ResetPassword.swift */; };
 		948DEF0C224A314500406AF8 /* ForgetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948DEF0B224A314500406AF8 /* ForgetPassword.swift */; };
 		948DEF13224A3C7C00406AF8 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 948DEF12224A3C7C00406AF8 /* Home.storyboard */; };
 		948DEF17224A4BD900406AF8 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948DEF16224A4BD900406AF8 /* SWRevealViewController.m */; };
 		9497D716224E59320096F55A /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9497D715224E59320096F55A /* Menu.swift */; };
+		949C4927229582CF00FE35A6 /* LoadingViewOtherFormat.xib in Resources */ = {isa = PBXBuildFile; fileRef = 949C4926229582CF00FE35A6 /* LoadingViewOtherFormat.xib */; };
+		949C49292295830300FE35A6 /* LoadingViewOtherFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949C49282295830300FE35A6 /* LoadingViewOtherFormat.swift */; };
 		94A0DC8A224E35F700AB41EC /* HazardTree.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94A0DC89224E35F700AB41EC /* HazardTree.storyboard */; };
 		94A0DC8D224E365700AB41EC /* HazardTreeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A0DC8C224E365700AB41EC /* HazardTreeVC.swift */; };
 		94A0DC91224E367E00AB41EC /* HazardTreeDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A0DC90224E367E00AB41EC /* HazardTreeDetailVC.swift */; };
 		94A0DC93224E370D00AB41EC /* HazardTree.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94A0DC92224E370D00AB41EC /* HazardTree.xib */; };
 		94A0DC97224E3DC500AB41EC /* HazardTreeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A0DC96224E3DC500AB41EC /* HazardTreeCell.swift */; };
 		94A0DC99224E488200AB41EC /* HazardTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A0DC98224E488200AB41EC /* HazardTree.swift */; };
+		94A315442296676B00EADF3C /* HotSpot.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94A315432296676B00EADF3C /* HotSpot.xib */; };
+		94A315462296678700EADF3C /* HotSpot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A315452296678700EADF3C /* HotSpot.swift */; };
+		94A31548229675A900EADF3C /* AddHotSpot.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94A31547229675A900EADF3C /* AddHotSpot.xib */; };
 		94B656792249EDB2008E469C /* ApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B656782249EDB2008E469C /* ApiHandler.swift */; };
 		94B8EBCA2255D0020054DA3E /* DropDownField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B8EBC92255D0020054DA3E /* DropDownField.swift */; };
 		94B8EBD2225635E40054DA3E /* EntityEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B8EBD1225635E40054DA3E /* EntityEnum.swift */; };
+		94B9C1D2228E7B7100631043 /* CustomTable.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94B9C1D1228E7B7100631043 /* CustomTable.xib */; };
+		94B9C1D4228E7C1300631043 /* CustomTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B9C1D3228E7C1300631043 /* CustomTable.swift */; };
+		94B9C1D6228E95F100631043 /* PopUpPickers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B9C1D5228E95F100631043 /* PopUpPickers.swift */; };
+		94C92F2222A10E0300467CD5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94C92F2122A10E0300467CD5 /* GoogleService-Info.plist */; };
 		94D0E668224A5D21001806C3 /* Navigation.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D0E667224A5D21001806C3 /* Navigation.xib */; };
 		94D0E66A224A5DAA001806C3 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D0E669224A5DAA001806C3 /* Navigation.swift */; };
 		94E2C8BA226068A500935259 /* Step3HazardTreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E2C8B9226068A500935259 /* Step3HazardTreeViewController.swift */; };
-		94E2C8BC226092B600935259 /* Step2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E2C8BB226092B600935259 /* Step2ViewController.swift */; };
+		94E2C8BC226092B600935259 /* Step2ViewController_Old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E2C8BB226092B600935259 /* Step2ViewController_Old.swift */; };
+		94EF897B2297CA63006FD45F /* HotSpot.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94EF897A2297CA63006FD45F /* HotSpot.storyboard */; };
+		94EF897E2297CBE5006FD45F /* HotSpotVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF897D2297CBE5006FD45F /* HotSpotVC.swift */; };
+		94EF89802297CBF9006FD45F /* HotSpotDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF897F2297CBF9006FD45F /* HotSpotDetailVC.swift */; };
+		94EF89842297CC1B006FD45F /* AddHotSpotVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF89832297CC1B006FD45F /* AddHotSpotVC.swift */; };
+		94EF89862297CC2A006FD45F /* FilterHotSpotVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF89852297CC2A006FD45F /* FilterHotSpotVC.swift */; };
+		94EF89882297CD0D006FD45F /* HotSpotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF89872297CD0D006FD45F /* HotSpotCell.swift */; };
+		94EF898A2297D122006FD45F /* HotSpotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF89892297D122006FD45F /* HotSpotModel.swift */; };
+		94EF898C22983740006FD45F /* AddHotSpot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF898B22983740006FD45F /* AddHotSpot.swift */; };
+		94F7D4DB22AA806B00307347 /* WorkOrderApiTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F7D4DA22AA806B00307347 /* WorkOrderApiTableCell.swift */; };
 		94FB75C62249EBB9006A3886 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FB75C52249EBB9006A3886 /* AppDelegate.swift */; };
 		94FB75C82249EBB9006A3886 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FB75C72249EBB9006A3886 /* Login.swift */; };
 		94FB75CB2249EBB9006A3886 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94FB75C92249EBB9006A3886 /* Main.storyboard */; };
 		94FB75D02249EBBB006A3886 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94FB75CE2249EBBB006A3886 /* LaunchScreen.storyboard */; };
-		A1BE0B4160255E6CD729C091 /* Pods_VegetationApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CE6579908B4B456C03BE9C4 /* Pods_VegetationApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		079EA399EFF2DC20AD81A303 /* Pods-VegetationApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VegetationApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VegetationApp/Pods-VegetationApp.debug.xcconfig"; sourceTree = "<group>"; };
 		7BD20FC46056876C9DD0B37A /* Pods-VegetationApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VegetationApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-VegetationApp/Pods-VegetationApp.release.xcconfig"; sourceTree = "<group>"; };
+		940061652282B39F00ADB94D /* Locate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locate.swift; sourceTree = "<group>"; };
 		940348502251DDA00093D9C2 /* StepView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StepView.xib; sourceTree = "<group>"; };
 		940348522251DE4B0093D9C2 /* StepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepView.swift; sourceTree = "<group>"; };
 		940348542251E1160093D9C2 /* WorkOrder.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WorkOrder.storyboard; sourceTree = "<group>"; };
@@ -138,6 +169,7 @@
 		94297B58225DF8DB003F1515 /* Step3CycleTrimViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step3CycleTrimViewController.swift; sourceTree = "<group>"; };
 		94297B5A225DFD17003F1515 /* UnAssignedButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UnAssignedButton.xib; sourceTree = "<group>"; };
 		94297B5C225DFD50003F1515 /* UnAssignedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnAssignedButton.swift; sourceTree = "<group>"; };
+		9431689022895A6600160C07 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		94355BC82265E7E300B95FD5 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		94355BCA2266087500B95FD5 /* FilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterVC.swift; sourceTree = "<group>"; };
 		94372377225DB890003EDD8E /* WorkerOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkerOrderVC.swift; sourceTree = "<group>"; };
@@ -150,20 +182,31 @@
 		94377B4A22575BF600C0B711 /* SetImageWithTitle.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetImageWithTitle.xib; sourceTree = "<group>"; };
 		94377B4C22575CF400C0B711 /* SetImageWithTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetImageWithTitle.swift; sourceTree = "<group>"; };
 		94377B4E2257817900C0B711 /* ImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
+		944BAD742279A00A00FD7B1B /* ARMeasure.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ARMeasure.storyboard; sourceTree = "<group>"; };
+		944BAD762279A1B000FD7B1B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		944BAD772279A1B000FD7B1B /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		944BAD782279A1B000FD7B1B /* FocusSquare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusSquare.swift; sourceTree = "<group>"; };
+		944BAD792279A1B000FD7B1B /* NewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewVC.swift; sourceTree = "<group>"; };
 		944E67DA2254BB4B00D0D6D5 /* VegetationApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VegetationApp.xcdatamodel; sourceTree = "<group>"; };
 		944E67DC2254C05100D0D6D5 /* MasterDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterDataController.swift; sourceTree = "<group>"; };
 		944E67DE2254D5D700D0D6D5 /* VegetationApp 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "VegetationApp 2.xcdatamodel"; sourceTree = "<group>"; };
 		944EB86C2262150300500B63 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
+		94582722229FFAE1000C3C80 /* EditWorkOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWorkOrderViewController.swift; sourceTree = "<group>"; };
+		9458272422A01E6E000C3C80 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		945CB37822533D5200DC810E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		945CB37B22533F0800DC810E /* ApiConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConstant.swift; sourceTree = "<group>"; };
 		945CB37D2253569200DC810E /* GetSaveUserDetailsFromUserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSaveUserDetailsFromUserDefault.swift; sourceTree = "<group>"; };
 		94636D33224A4EFC0033B8E6 /* DimLayerSwRevealView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimLayerSwRevealView.swift; sourceTree = "<group>"; };
 		94636D36224A4F430033B8E6 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		946523E622A68CC600B85B55 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 		9469FD5A22538CBE0090B898 /* HazardTreeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HazardTreeModel.swift; sourceTree = "<group>"; };
 		9469FD5C2253A3600090B898 /* CycleTrimModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleTrimModel.swift; sourceTree = "<group>"; };
 		946AE958224C963600F8E981 /* CycleAndHazardDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CycleAndHazardDetailView.xib; sourceTree = "<group>"; };
 		946AE95A224C96F100F8E981 /* CycleAndHazardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleAndHazardDetailView.swift; sourceTree = "<group>"; };
+		9475F839229E4DDB000BEC20 /* Step2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step2ViewController.swift; sourceTree = "<group>"; };
+		9475F83B229E7068000BEC20 /* Step3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step3ViewController.swift; sourceTree = "<group>"; };
 		947752302249F4F800A2EB14 /* CheckInternetConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInternetConnection.swift; sourceTree = "<group>"; };
+		947EC6652281769200AACDC9 /* VegetationApp 9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "VegetationApp 9.xcdatamodel"; sourceTree = "<group>"; };
 		948DEF09224A313900406AF8 /* ResetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPassword.swift; sourceTree = "<group>"; };
 		948DEF0B224A314500406AF8 /* ForgetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPassword.swift; sourceTree = "<group>"; };
 		948DEF12224A3C7C00406AF8 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
@@ -171,23 +214,42 @@
 		948DEF15224A4BD900406AF8 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		948DEF16224A4BD900406AF8 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		9497D715224E59320096F55A /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		949C4926229582CF00FE35A6 /* LoadingViewOtherFormat.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingViewOtherFormat.xib; sourceTree = "<group>"; };
+		949C49282295830300FE35A6 /* LoadingViewOtherFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewOtherFormat.swift; sourceTree = "<group>"; };
 		94A0DC89224E35F700AB41EC /* HazardTree.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HazardTree.storyboard; sourceTree = "<group>"; };
 		94A0DC8C224E365700AB41EC /* HazardTreeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HazardTreeVC.swift; sourceTree = "<group>"; };
 		94A0DC90224E367E00AB41EC /* HazardTreeDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HazardTreeDetailVC.swift; sourceTree = "<group>"; };
 		94A0DC92224E370D00AB41EC /* HazardTree.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HazardTree.xib; sourceTree = "<group>"; };
 		94A0DC96224E3DC500AB41EC /* HazardTreeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HazardTreeCell.swift; sourceTree = "<group>"; };
 		94A0DC98224E488200AB41EC /* HazardTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HazardTree.swift; sourceTree = "<group>"; };
+		94A315432296676B00EADF3C /* HotSpot.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotSpot.xib; sourceTree = "<group>"; };
+		94A315452296678700EADF3C /* HotSpot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotSpot.swift; sourceTree = "<group>"; };
+		94A31547229675A900EADF3C /* AddHotSpot.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddHotSpot.xib; sourceTree = "<group>"; };
 		94B656782249EDB2008E469C /* ApiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHandler.swift; sourceTree = "<group>"; };
 		94B8EBC92255D0020054DA3E /* DropDownField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownField.swift; sourceTree = "<group>"; };
 		94B8EBCF225619600054DA3E /* VegetationApp 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "VegetationApp 3.xcdatamodel"; sourceTree = "<group>"; };
 		94B8EBD0225628F30054DA3E /* VegetationApp 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "VegetationApp 4.xcdatamodel"; sourceTree = "<group>"; };
 		94B8EBD1225635E40054DA3E /* EntityEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityEnum.swift; sourceTree = "<group>"; };
+		94B9C1D1228E7B7100631043 /* CustomTable.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTable.xib; sourceTree = "<group>"; };
+		94B9C1D3228E7C1300631043 /* CustomTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTable.swift; sourceTree = "<group>"; };
+		94B9C1D5228E95F100631043 /* PopUpPickers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpPickers.swift; sourceTree = "<group>"; };
+		94C92F2022A10D2200467CD5 /* VegetationApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VegetationApp.entitlements; sourceTree = "<group>"; };
+		94C92F2122A10E0300467CD5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		94D0E667224A5D21001806C3 /* Navigation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Navigation.xib; sourceTree = "<group>"; };
 		94D0E669224A5DAA001806C3 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		94E2C8B9226068A500935259 /* Step3HazardTreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step3HazardTreeViewController.swift; sourceTree = "<group>"; };
-		94E2C8BB226092B600935259 /* Step2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step2ViewController.swift; sourceTree = "<group>"; };
+		94E2C8BB226092B600935259 /* Step2ViewController_Old.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step2ViewController_Old.swift; sourceTree = "<group>"; };
 		94E2C8BD2260A0C500935259 /* VegetationApp 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "VegetationApp 5.xcdatamodel"; sourceTree = "<group>"; };
 		94E39200226849D200002EB5 /* VegetationApp 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "VegetationApp 8.xcdatamodel"; sourceTree = "<group>"; };
+		94EF897A2297CA63006FD45F /* HotSpot.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HotSpot.storyboard; sourceTree = "<group>"; };
+		94EF897D2297CBE5006FD45F /* HotSpotVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotSpotVC.swift; sourceTree = "<group>"; };
+		94EF897F2297CBF9006FD45F /* HotSpotDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotSpotDetailVC.swift; sourceTree = "<group>"; };
+		94EF89832297CC1B006FD45F /* AddHotSpotVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHotSpotVC.swift; sourceTree = "<group>"; };
+		94EF89852297CC2A006FD45F /* FilterHotSpotVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterHotSpotVC.swift; sourceTree = "<group>"; };
+		94EF89872297CD0D006FD45F /* HotSpotCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotSpotCell.swift; sourceTree = "<group>"; };
+		94EF89892297D122006FD45F /* HotSpotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotSpotModel.swift; sourceTree = "<group>"; };
+		94EF898B22983740006FD45F /* AddHotSpot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHotSpot.swift; sourceTree = "<group>"; };
+		94F7D4DA22AA806B00307347 /* WorkOrderApiTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOrderApiTableCell.swift; sourceTree = "<group>"; };
 		94FB75C22249EBB9006A3886 /* VegetationApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VegetationApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94FB75C52249EBB9006A3886 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94FB75C72249EBB9006A3886 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
@@ -202,7 +264,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1BE0B4160255E6CD729C091 /* Pods_VegetationApp.framework in Frameworks */,
+				9431689122895A6600160C07 /* ARKit.framework in Frameworks */,
+				06C22EF00FE4CFD6BE45AC8E /* Pods_VegetationApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,6 +275,7 @@
 		6E1C902700292323ACDFDF21 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9431689022895A6600160C07 /* ARKit.framework */,
 				9CE6579908B4B456C03BE9C4 /* Pods_VegetationApp.framework */,
 			);
 			name = Frameworks;
@@ -226,7 +290,12 @@
 				94372381225DD08A003EDD8E /* WorkOrderDetailVC.swift */,
 				94297B58225DF8DB003F1515 /* Step3CycleTrimViewController.swift */,
 				94E2C8B9226068A500935259 /* Step3HazardTreeViewController.swift */,
-				94E2C8BB226092B600935259 /* Step2ViewController.swift */,
+				94E2C8BB226092B600935259 /* Step2ViewController_Old.swift */,
+				9475F839229E4DDB000BEC20 /* Step2ViewController.swift */,
+				9475F83B229E7068000BEC20 /* Step3ViewController.swift */,
+				94582722229FFAE1000C3C80 /* EditWorkOrderViewController.swift */,
+				9458272422A01E6E000C3C80 /* SectionHeader.swift */,
+				94F7D4DA22AA806B00307347 /* WorkOrderApiTableCell.swift */,
 			);
 			path = WorkOrder;
 			sourceTree = "<group>";
@@ -235,6 +304,7 @@
 			isa = PBXGroup;
 			children = (
 				9407C1AE225CB865000467FF /* Map.swift */,
+				940061652282B39F00ADB94D /* Locate.swift */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
@@ -249,6 +319,17 @@
 				94355BCA2266087500B95FD5 /* FilterVC.swift */,
 			);
 			path = CycleTrim;
+			sourceTree = "<group>";
+		};
+		944BAD7322799FB600FD7B1B /* ARMeasure */ = {
+			isa = PBXGroup;
+			children = (
+				944BAD762279A1B000FD7B1B /* Extensions.swift */,
+				944BAD782279A1B000FD7B1B /* FocusSquare.swift */,
+				944BAD792279A1B000FD7B1B /* NewVC.swift */,
+				944BAD772279A1B000FD7B1B /* Utilities.swift */,
+			);
+			path = ARMeasure;
 			sourceTree = "<group>";
 		};
 		944E67D82254BB0200D0D6D5 /* CoreData */ = {
@@ -269,6 +350,7 @@
 				94115E8E225B477500CCD172 /* TreeSpeciesPercentage.swift */,
 				9437237F225DBE7E003EDD8E /* WorkOrderModel.swift */,
 				941B15BE2276FA1A00C27208 /* AuditList.swift */,
+				94EF89892297D122006FD45F /* HotSpotModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -304,6 +386,8 @@
 				94A0DC89224E35F700AB41EC /* HazardTree.storyboard */,
 				940348542251E1160093D9C2 /* WorkOrder.storyboard */,
 				9407C1AB225CB7CE000467FF /* Map.storyboard */,
+				944BAD742279A00A00FD7B1B /* ARMeasure.storyboard */,
+				94EF897A2297CA63006FD45F /* HotSpot.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -328,6 +412,94 @@
 			path = HazardTree;
 			sourceTree = "<group>";
 		};
+		94A3153C2296666B00EADF3C /* Loading View */ = {
+			isa = PBXGroup;
+			children = (
+				9407C1A6225C6808000467FF /* LoadingView.swift */,
+				9407C1A5225C6808000467FF /* loadingView.xib */,
+				949C4926229582CF00FE35A6 /* LoadingViewOtherFormat.xib */,
+				949C49282295830300FE35A6 /* LoadingViewOtherFormat.swift */,
+			);
+			path = "Loading View";
+			sourceTree = "<group>";
+		};
+		94A3153D2296668600EADF3C /* Hot Spot View */ = {
+			isa = PBXGroup;
+			children = (
+				94A315432296676B00EADF3C /* HotSpot.xib */,
+				94A315452296678700EADF3C /* HotSpot.swift */,
+				94A31547229675A900EADF3C /* AddHotSpot.xib */,
+				94EF898B22983740006FD45F /* AddHotSpot.swift */,
+			);
+			path = "Hot Spot View";
+			sourceTree = "<group>";
+		};
+		94A3153E2296668F00EADF3C /* Navigation View */ = {
+			isa = PBXGroup;
+			children = (
+				94D0E667224A5D21001806C3 /* Navigation.xib */,
+				94D0E669224A5DAA001806C3 /* Navigation.swift */,
+			);
+			path = "Navigation View";
+			sourceTree = "<group>";
+		};
+		94A3153F229666B900EADF3C /* Cycle Trim View */ = {
+			isa = PBXGroup;
+			children = (
+				9403486B22523F100093D9C2 /* NewlyAddedTreeSpecies.swift */,
+				94162C26224B997D00C4CAAC /* CycleTrim.xib */,
+				94162C28224B9DD600C4CAAC /* CycleTrim.swift */,
+				940348672252388F0093D9C2 /* AddCycleTrim.xib */,
+				94034869225239320093D9C2 /* AddCycleTrim.swift */,
+				9403486D22523F8B0093D9C2 /* NewlyAddedTreeSpecies.xib */,
+				9403487122524D5C0093D9C2 /* NewlyAddedTreeSpeciesTableViewCell.swift */,
+			);
+			path = "Cycle Trim View";
+			sourceTree = "<group>";
+		};
+		94A31540229666CE00EADF3C /* Hazard Tree View */ = {
+			isa = PBXGroup;
+			children = (
+				94A0DC92224E370D00AB41EC /* HazardTree.xib */,
+				94A0DC98224E488200AB41EC /* HazardTree.swift */,
+				94034859225208490093D9C2 /* AddHazardTree.xib */,
+				9403485B22521AF80093D9C2 /* AddHazardTree.swift */,
+			);
+			path = "Hazard Tree View";
+			sourceTree = "<group>";
+		};
+		94A31541229666F900EADF3C /* Common View */ = {
+			isa = PBXGroup;
+			children = (
+				946AE958224C963600F8E981 /* CycleAndHazardDetailView.xib */,
+				946AE95A224C96F100F8E981 /* CycleAndHazardDetailView.swift */,
+				940348502251DDA00093D9C2 /* StepView.xib */,
+				940348522251DE4B0093D9C2 /* StepView.swift */,
+				9403485F225220790093D9C2 /* AddImageCell.xib */,
+				9403486322522E6E0093D9C2 /* NewlyAddedImageCell.xib */,
+				94034861225221E10093D9C2 /* AddImageCell.swift */,
+				9403486522522EE70093D9C2 /* NewlyAddedImageCell.swift */,
+				94B8EBC92255D0020054DA3E /* DropDownField.swift */,
+				94377B4A22575BF600C0B711 /* SetImageWithTitle.xib */,
+				94377B4C22575CF400C0B711 /* SetImageWithTitle.swift */,
+				94297B5A225DFD17003F1515 /* UnAssignedButton.xib */,
+				94297B5C225DFD50003F1515 /* UnAssignedButton.swift */,
+				94B9C1D1228E7B7100631043 /* CustomTable.xib */,
+				94B9C1D3228E7C1300631043 /* CustomTable.swift */,
+				94B9C1D5228E95F100631043 /* PopUpPickers.swift */,
+			);
+			path = "Common View";
+			sourceTree = "<group>";
+		};
+		94A315422296673300EADF3C /* Work Order View */ = {
+			isa = PBXGroup;
+			children = (
+				94372379225DBA4D003EDD8E /* WorkOrder.xib */,
+				9437237B225DBB2A003EDD8E /* WorkOrder.swift */,
+			);
+			path = "Work Order View";
+			sourceTree = "<group>";
+		};
 		94B656772249ED98008E469C /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -347,6 +519,7 @@
 				94B8EBD1225635E40054DA3E /* EntityEnum.swift */,
 				94355BC82265E7E300B95FD5 /* Toast.swift */,
 				941B15BC2276C24A00C27208 /* DateFormatters.swift */,
+				946523E622A68CC600B85B55 /* NotificationHandler.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -354,43 +527,33 @@
 		94D0E666224A5D0D001806C3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				9407C1A6225C6808000467FF /* LoadingView.swift */,
-				9407C1A5225C6808000467FF /* loadingView.xib */,
-				94D0E667224A5D21001806C3 /* Navigation.xib */,
-				94D0E669224A5DAA001806C3 /* Navigation.swift */,
-				94162C26224B997D00C4CAAC /* CycleTrim.xib */,
-				94A0DC92224E370D00AB41EC /* HazardTree.xib */,
-				94162C28224B9DD600C4CAAC /* CycleTrim.swift */,
-				946AE958224C963600F8E981 /* CycleAndHazardDetailView.xib */,
-				946AE95A224C96F100F8E981 /* CycleAndHazardDetailView.swift */,
-				94A0DC98224E488200AB41EC /* HazardTree.swift */,
-				940348502251DDA00093D9C2 /* StepView.xib */,
-				940348522251DE4B0093D9C2 /* StepView.swift */,
-				94034859225208490093D9C2 /* AddHazardTree.xib */,
-				9403485B22521AF80093D9C2 /* AddHazardTree.swift */,
-				9403485F225220790093D9C2 /* AddImageCell.xib */,
-				9403486322522E6E0093D9C2 /* NewlyAddedImageCell.xib */,
-				94034861225221E10093D9C2 /* AddImageCell.swift */,
-				9403486522522EE70093D9C2 /* NewlyAddedImageCell.swift */,
-				940348672252388F0093D9C2 /* AddCycleTrim.xib */,
-				9403486B22523F100093D9C2 /* NewlyAddedTreeSpecies.swift */,
-				94034869225239320093D9C2 /* AddCycleTrim.swift */,
-				9403486D22523F8B0093D9C2 /* NewlyAddedTreeSpecies.xib */,
-				9403487122524D5C0093D9C2 /* NewlyAddedTreeSpeciesTableViewCell.swift */,
-				94B8EBC92255D0020054DA3E /* DropDownField.swift */,
-				94377B4A22575BF600C0B711 /* SetImageWithTitle.xib */,
-				94377B4C22575CF400C0B711 /* SetImageWithTitle.swift */,
-				94372379225DBA4D003EDD8E /* WorkOrder.xib */,
-				9437237B225DBB2A003EDD8E /* WorkOrder.swift */,
-				94297B5A225DFD17003F1515 /* UnAssignedButton.xib */,
-				94297B5C225DFD50003F1515 /* UnAssignedButton.swift */,
+				94A3153C2296666B00EADF3C /* Loading View */,
+				94A3153E2296668F00EADF3C /* Navigation View */,
+				94A3153D2296668600EADF3C /* Hot Spot View */,
+				94A3153F229666B900EADF3C /* Cycle Trim View */,
+				94A31540229666CE00EADF3C /* Hazard Tree View */,
+				94A31541229666F900EADF3C /* Common View */,
+				94A315422296673300EADF3C /* Work Order View */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		94EF897C2297CBC1006FD45F /* Hot Spot */ = {
+			isa = PBXGroup;
+			children = (
+				94EF897D2297CBE5006FD45F /* HotSpotVC.swift */,
+				94EF897F2297CBF9006FD45F /* HotSpotDetailVC.swift */,
+				94EF89832297CC1B006FD45F /* AddHotSpotVC.swift */,
+				94EF89852297CC2A006FD45F /* FilterHotSpotVC.swift */,
+				94EF89872297CD0D006FD45F /* HotSpotCell.swift */,
+			);
+			path = "Hot Spot";
 			sourceTree = "<group>";
 		};
 		94FB75B92249EBB9006A3886 = {
 			isa = PBXGroup;
 			children = (
+				94C92F2122A10E0300467CD5 /* GoogleService-Info.plist */,
 				94FB75C42249EBB9006A3886 /* VegetationApp */,
 				94FB75C32249EBB9006A3886 /* Products */,
 				C52A873FE6132BC1F9E6330C /* Pods */,
@@ -409,6 +572,9 @@
 		94FB75C42249EBB9006A3886 /* VegetationApp */ = {
 			isa = PBXGroup;
 			children = (
+				94C92F2022A10D2200467CD5 /* VegetationApp.entitlements */,
+				94EF897C2297CBC1006FD45F /* Hot Spot */,
+				944BAD7322799FB600FD7B1B /* ARMeasure */,
 				9407C1AD225CB84B000467FF /* MapView */,
 				944E67D82254BB0200D0D6D5 /* CoreData */,
 				945CB37722533D3E00DC810E /* Models */,
@@ -447,6 +613,7 @@
 				94FB75BF2249EBB9006A3886 /* Frameworks */,
 				94FB75C02249EBB9006A3886 /* Resources */,
 				8B3CDD2C1B9A0F0D22697D09 /* [CP] Embed Pods Frameworks */,
+				94C4576C227AF8EA00F6351D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -470,6 +637,11 @@
 					94FB75C12249EBB9006A3886 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1010;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -500,8 +672,11 @@
 				94A0DC93224E370D00AB41EC /* HazardTree.xib in Resources */,
 				94FB75D02249EBBB006A3886 /* LaunchScreen.storyboard in Resources */,
 				94FB75CB2249EBB9006A3886 /* Main.storyboard in Resources */,
+				94C92F2222A10E0300467CD5 /* GoogleService-Info.plist in Resources */,
 				9403485A225208490093D9C2 /* AddHazardTree.xib in Resources */,
+				94A315442296676B00EADF3C /* HotSpot.xib in Resources */,
 				94162C27224B997D00C4CAAC /* CycleTrim.xib in Resources */,
+				944BAD752279A00A00FD7B1B /* ARMeasure.storyboard in Resources */,
 				940348682252388F0093D9C2 /* AddCycleTrim.xib in Resources */,
 				94D0E668224A5D21001806C3 /* Navigation.xib in Resources */,
 				940348552251E1160093D9C2 /* WorkOrder.storyboard in Resources */,
@@ -512,6 +687,10 @@
 				9437237A225DBA4D003EDD8E /* WorkOrder.xib in Resources */,
 				948DEF13224A3C7C00406AF8 /* Home.storyboard in Resources */,
 				94297B5B225DFD17003F1515 /* UnAssignedButton.xib in Resources */,
+				949C4927229582CF00FE35A6 /* LoadingViewOtherFormat.xib in Resources */,
+				94EF897B2297CA63006FD45F /* HotSpot.storyboard in Resources */,
+				94B9C1D2228E7B7100631043 /* CustomTable.xib in Resources */,
+				94A31548229675A900EADF3C /* AddHotSpot.xib in Resources */,
 				94162C1F224B42CC00C4CAAC /* Assets.xcassets in Resources */,
 				9403486422522E6E0093D9C2 /* NewlyAddedImageCell.xib in Resources */,
 				94162C25224B991C00C4CAAC /* CycleTrim.storyboard in Resources */,
@@ -551,20 +730,39 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-VegetationApp/Pods-VegetationApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CropViewController/CropViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CropViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VegetationApp/Pods-VegetationApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		94C4576C227AF8EA00F6351D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "${PODS_ROOT}/Fabric/run";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -574,18 +772,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				9410423822671D0B00D7F7CF /* FilterVCHazardTree.swift in Sources */,
+				9475F83A229E4DDB000BEC20 /* Step2ViewController.swift in Sources */,
 				94355BCB2266087500B95FD5 /* FilterVC.swift in Sources */,
 				94162C2C224B9EEE00C4CAAC /* CycleTrimCell.swift in Sources */,
 				94162C23224B81AA00C4CAAC /* viewSetupExtension.swift in Sources */,
 				9403485C22521AF80093D9C2 /* AddHazardTree.swift in Sources */,
 				9403487222524D5C0093D9C2 /* NewlyAddedTreeSpeciesTableViewCell.swift in Sources */,
-				94E2C8BC226092B600935259 /* Step2ViewController.swift in Sources */,
+				94E2C8BC226092B600935259 /* Step2ViewController_Old.swift in Sources */,
+				94EF89802297CBF9006FD45F /* HotSpotDetailVC.swift in Sources */,
 				94636D34224A4EFC0033B8E6 /* DimLayerSwRevealView.swift in Sources */,
+				9458272522A01E6E000C3C80 /* SectionHeader.swift in Sources */,
+				94B9C1D6228E95F100631043 /* PopUpPickers.swift in Sources */,
 				94162C29224B9DD600C4CAAC /* CycleTrim.swift in Sources */,
 				9469FD5D2253A3600090B898 /* CycleTrimModel.swift in Sources */,
+				94EF89862297CC2A006FD45F /* FilterHotSpotVC.swift in Sources */,
 				94A0DC97224E3DC500AB41EC /* HazardTreeCell.swift in Sources */,
 				94115E8F225B477500CCD172 /* TreeSpeciesPercentage.swift in Sources */,
 				944EB86D2262150300500B63 /* MenuTableViewCell.swift in Sources */,
+				94EF89882297CD0D006FD45F /* HotSpotCell.swift in Sources */,
 				946AE95B224C96F100F8E981 /* CycleAndHazardDetailView.swift in Sources */,
 				9407C1AA225CA704000467FF /* GetUserLocation.swift in Sources */,
 				948DEF17224A4BD900406AF8 /* SWRevealViewController.m in Sources */,
@@ -600,9 +804,15 @@
 				94377B4D22575CF400C0B711 /* SetImageWithTitle.swift in Sources */,
 				9403485E22521C2D0093D9C2 /* AddHazardTreeVC.swift in Sources */,
 				94A0DC99224E488200AB41EC /* HazardTree.swift in Sources */,
+				94582723229FFAE1000C3C80 /* EditWorkOrderViewController.swift in Sources */,
+				944BAD7A2279A1B000FD7B1B /* Extensions.swift in Sources */,
 				945CB37C22533F0800DC810E /* ApiConstant.swift in Sources */,
 				9403486C22523F100093D9C2 /* NewlyAddedTreeSpecies.swift in Sources */,
+				946523E722A68CC600B85B55 /* NotificationHandler.swift in Sources */,
 				94E2C8BA226068A500935259 /* Step3HazardTreeViewController.swift in Sources */,
+				94EF898A2297D122006FD45F /* HotSpotModel.swift in Sources */,
+				94EF897E2297CBE5006FD45F /* HotSpotVC.swift in Sources */,
+				940061662282B39F00ADB94D /* Locate.swift in Sources */,
 				9403486A225239320093D9C2 /* AddCycleTrim.swift in Sources */,
 				94FB75C82249EBB9006A3886 /* Login.swift in Sources */,
 				94162C2E224BA11E00C4CAAC /* CycleTrimVC.swift in Sources */,
@@ -610,32 +820,42 @@
 				94B656792249EDB2008E469C /* ApiHandler.swift in Sources */,
 				94636D37224A4F430033B8E6 /* Home.swift in Sources */,
 				94355BC92265E7E300B95FD5 /* Toast.swift in Sources */,
+				94EF898C22983740006FD45F /* AddHotSpot.swift in Sources */,
 				94162C21224B51F800C4CAAC /* DashboardCell.swift in Sources */,
 				94377B4922574EA400C0B711 /* ChoosePicture.swift in Sources */,
 				940348582251E21A0093D9C2 /* Step1ViewController.swift in Sources */,
 				945CB37E2253569200DC810E /* GetSaveUserDetailsFromUserDefault.swift in Sources */,
 				941B15BF2276FA1A00C27208 /* AuditList.swift in Sources */,
+				944BAD7C2279A1B000FD7B1B /* FocusSquare.swift in Sources */,
+				944BAD7B2279A1B000FD7B1B /* Utilities.swift in Sources */,
 				948DEF0A224A313900406AF8 /* ResetPassword.swift in Sources */,
 				94372378225DB890003EDD8E /* WorkerOrderVC.swift in Sources */,
 				9407C1AF225CB865000467FF /* Map.swift in Sources */,
 				941B15BD2276C24A00C27208 /* DateFormatters.swift in Sources */,
 				940348702252412A0093D9C2 /* AddCycleTrimVC.swift in Sources */,
+				94EF89842297CC1B006FD45F /* AddHotSpotVC.swift in Sources */,
 				94B8EBCA2255D0020054DA3E /* DropDownField.swift in Sources */,
 				94372382225DD08A003EDD8E /* WorkOrderDetailVC.swift in Sources */,
 				94B8EBD2225635E40054DA3E /* EntityEnum.swift in Sources */,
 				9497D716224E59320096F55A /* Menu.swift in Sources */,
 				94FB75C62249EBB9006A3886 /* AppDelegate.swift in Sources */,
+				9475F83C229E7069000BEC20 /* Step3ViewController.swift in Sources */,
+				949C49292295830300FE35A6 /* LoadingViewOtherFormat.swift in Sources */,
+				94B9C1D4228E7C1300631043 /* CustomTable.swift in Sources */,
 				94D0E66A224A5DAA001806C3 /* Navigation.swift in Sources */,
+				944BAD7D2279A1B000FD7B1B /* NewVC.swift in Sources */,
 				94297B59225DF8DB003F1515 /* Step3CycleTrimViewController.swift in Sources */,
 				944E67DB2254BB4B00D0D6D5 /* VegetationApp.xcdatamodeld in Sources */,
 				94377B4F2257817900C0B711 /* ImageData.swift in Sources */,
 				947752312249F4F800A2EB14 /* CheckInternetConnection.swift in Sources */,
+				94A315462296678700EADF3C /* HotSpot.swift in Sources */,
 				9437237E225DBBFD003EDD8E /* WorkOrderCell.swift in Sources */,
 				9437237C225DBB2A003EDD8E /* WorkOrder.swift in Sources */,
 				948DEF0C224A314500406AF8 /* ForgetPassword.swift in Sources */,
 				94A0DC8D224E365700AB41EC /* HazardTreeVC.swift in Sources */,
 				945CB37922533D5200DC810E /* User.swift in Sources */,
 				9407C1A8225C6808000467FF /* LoadingView.swift in Sources */,
+				94F7D4DB22AA806B00307347 /* WorkOrderApiTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -712,7 +932,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -767,7 +987,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -783,17 +1003,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = VegetationApp/VegetationApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = KD3HPT5G2W;
+				DEVELOPMENT_TEAM = Z5LDGYW376;
 				INFOPLIST_FILE = VegetationApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.trignodev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aidash.bcg.entergy.vegapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = td_dev;
+				PROVISIONING_PROFILE_SPECIFIER = "VegApp Development Profile";
 				SWIFT_OBJC_BRIDGING_HEADER = "VegetationApp/Common/Vegetation-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -807,17 +1029,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = VegetationApp/VegetationApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = KD3HPT5G2W;
+				DEVELOPMENT_TEAM = Z5LDGYW376;
 				INFOPLIST_FILE = VegetationApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.trignodev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aidash.bcg.entergy.vegapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = td_dev;
+				PROVISIONING_PROFILE_SPECIFIER = "VegApp Distribution Profile";
 				SWIFT_OBJC_BRIDGING_HEADER = "VegetationApp/Common/Vegetation-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -851,6 +1075,7 @@
 		944E67D92254BB4B00D0D6D5 /* VegetationApp.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				947EC6652281769200AACDC9 /* VegetationApp 9.xcdatamodel */,
 				94E39200226849D200002EB5 /* VegetationApp 8.xcdatamodel */,
 				9410423C22674FCD00D7F7CF /* VegetationApp 7.xcdatamodel */,
 				94104239226747D000D7F7CF /* VegetationApp 6.xcdatamodel */,
@@ -860,7 +1085,7 @@
 				944E67DE2254D5D700D0D6D5 /* VegetationApp 2.xcdatamodel */,
 				944E67DA2254BB4B00D0D6D5 /* VegetationApp.xcdatamodel */,
 			);
-			currentVersion = 94E39200226849D200002EB5 /* VegetationApp 8.xcdatamodel */;
+			currentVersion = 947EC6652281769200AACDC9 /* VegetationApp 9.xcdatamodel */;
 			path = VegetationApp.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

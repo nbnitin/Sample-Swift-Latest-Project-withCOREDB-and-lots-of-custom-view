@@ -13,11 +13,12 @@ class WorkOrderVC: UIViewController,UICollectionViewDataSource,UICollectionViewD
     //variables
     var cellHeight : CGFloat = 180
     var cellWidth : CGFloat = 0.0
-    var data : [WorkOrderModel] = []
+    var data : [[WorkOrderModel]] = [[WorkOrderModel]]()
     var mcd : MasterDataController!
     let leftInset = 8
     let rightInset = 8
     var apiData : [[String:AnyObject]] = [[String:AnyObject]]()
+    var sections : [String] = [String]()
     
     //outlets
     @IBOutlet weak var workOrderCollectionView: UICollectionView!
@@ -31,6 +32,10 @@ class WorkOrderVC: UIViewController,UICollectionViewDataSource,UICollectionViewD
         
         btnAdd.addTarget(self, action: #selector(addNewWorkOrder(_:)), for: .touchUpInside)
         
+        if ( GetSaveUserDetailsFromUserDefault.getDetials()!.Type > 2 ) {
+            btnAdd.isHidden = true
+        }
+        
         
         cellWidth = self.view.bounds.width
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
@@ -39,6 +44,9 @@ class WorkOrderVC: UIViewController,UICollectionViewDataSource,UICollectionViewD
 
         navigationBar.btnMenu.addTarget(self.revealViewController(), action: #selector((SWRevealViewController.revealToggle) as (SWRevealViewController) -> (Void) -> Void), for: .touchUpInside)
         // Do any additional setup after loading the view.
+        //sticky header
+        let layout = workOrderCollectionView.collectionViewLayout as? UICollectionViewFlowLayout // casting is required because UICollectionViewLayout doesn't offer header pin. Its feature of UICollectionViewFlowLayout
+        layout?.sectionHeadersPinToVisibleBounds = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -55,27 +63,41 @@ class WorkOrderVC: UIViewController,UICollectionViewDataSource,UICollectionViewD
         performSegue(withIdentifier: "addNewCycleTrim", sender: self)
     }
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return sections.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "sections", for: indexPath) as? SectionHeader{
+            sectionHeader.lblSectionTitle.text = sections[indexPath.section]
+            
+            return sectionHeader
+        }
+        return UICollectionReusableView()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
+            return data[section].count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! WorkOrderCell
-        cell.containerView.lblFeeder.text = mcd.getRecordById(entityName: .FeederList, id: data[indexPath.row].FeederId)["name"] as? String
-        cell.containerView.lblWorkOrder.text = "\(data[indexPath.row].WorkOrderId)"
-        cell.containerView.lblSegment.text = "\(data[indexPath.row].SegamentMiles)"
-        cell.containerView.lblAssginedTo.text = getUserName(id: data[indexPath.row].AssignedTo)
+        cell.containerView.lblTitle.text = data[indexPath.section][indexPath.row].Title
         
-        if ( data[indexPath.row].HazardTreeWithImagesList!.count > 0 ) {
+        cell.containerView.lblWorkOrder.text = "\(data[indexPath.section][indexPath.row].WorkOrderId)"
+        cell.containerView.lblAssginedTo.text =  data[indexPath.section][indexPath.row].AssignedToName
+        cell.containerView.lblSegment.text = DateFormatters.shared.dateFormatter2.string(from: DateFormatters.shared.dateFormatterNormal.date(from: data[indexPath.section][indexPath.row].DueDate!)!)
+        
+        if (  data[indexPath.section][indexPath.row].HazardTreeList != nil && data[indexPath.section][indexPath.row].HazardTreeList!.count > 0 ) {
             cell.containerView.lblCycleHazardNoTitle.text = "No. Of Hazard Tree:"
-            cell.containerView.lblNoOfHazardTree.text = "\((data[indexPath.row].HazardTreeWithImagesList?.count)!)"
+            cell.containerView.lblNoOfHazardTree.text = "\((data[indexPath.section][indexPath.row].HazardTreeList?.count)!)"
         } else {
-            cell.containerView.lblCycleHazardNoTitle.text = "No. Of Cycle Trim:"
-              cell.containerView.lblNoOfHazardTree.text = "\((data[indexPath.row].RowWithTreeList?.count)!)"
+            cell.containerView.lblCycleHazardNoTitle.text = "No. Of Hot Spot:"
+              cell.containerView.lblNoOfHazardTree.text = "\((data[indexPath.section][indexPath.row].HotSpotList?.count)!)"
         }
         
-
         
         cell.containerView.imgView.isHidden = true
         
@@ -101,9 +123,8 @@ class WorkOrderVC: UIViewController,UICollectionViewDataSource,UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "workOrderDetailVC") as! WorkOrderDetailVC
-        vc.workOrderData = self.data[indexPath.row]
+        vc.workOrderData = self.data[indexPath.section][indexPath.row]
         let cell = collectionView.cellForItem(at: indexPath) as! WorkOrderCell
-        vc.assignedToName = cell.containerView.lblAssginedTo.text!
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -147,6 +168,7 @@ class WorkOrderVC: UIViewController,UICollectionViewDataSource,UICollectionViewD
         let userId = userData!.UserId
         let url = apiUrl.getWorkOrder + "\(userId)"
         data.removeAll()
+        sections.removeAll()
         
         apiHandler.sendGetRequest(url: url,  completionHandler: { response,error in
             print(response)
@@ -160,17 +182,42 @@ class WorkOrderVC: UIViewController,UICollectionViewDataSource,UICollectionViewD
             if( (response["Status"] as! Int) != 0 ) {
                 do{
                     let data = response["KeyValueList"] as! [[String:AnyObject]]
+                    var tempWorkModel = [WorkOrderModel]()
                     
                     for tempData in data{
                         let jsonData = try? JSONSerialization.data(withJSONObject: tempData, options: [])
                         let model = try JSONDecoder().decode(WorkOrderModel.self, from: jsonData!)
-                        self.data.append(model)
+                        tempWorkModel.append(model)
                     }
                     
+                   tempWorkModel.sort(by: {
+                        let rec1 = DateFormatters.shared.dateFormatterNormal.date(from: $0.CreatedAt)
+                        let rec2 = DateFormatters.shared.dateFormatterNormal.date(from: $1.CreatedAt)
+                        if (rec1!.compare(rec2!) == .orderedDescending){ return true }
+                        return false
+                    })
+                    
+                    let tempApproved = tempWorkModel.filter({$0.Status == 5})
+                    let tempWorking = tempWorkModel.filter({$0.Status == 2})
+                    let tempComplete = tempWorkModel.filter({$0.Status == 4})
+                    let tempAssigned = tempWorkModel.filter({$0.Status == 6 || $0.Status == 3})
+                    
+                    
+                    
+                    self.data.append(tempAssigned)
+                    self.data.append(tempWorking)
+                    self.data.append(tempComplete)
+                    self.data.append(tempApproved)
+                    tempWorkModel.removeAll()
+
                     self.callApiUser()
                     
                     if ( data.count > 0 ) {
                         self.removeNoRecordFoundLabel()
+                        self.sections.append("Assigned")
+                        self.sections.append("Working")
+                        self.sections.append("Complete")
+                        self.sections.append("Approved")
                         self.workOrderCollectionView.reloadData()
                     } else {
                         self.addNoRecordLabel(text: "No work order found", topConstraintToView: self.navigationBar)
